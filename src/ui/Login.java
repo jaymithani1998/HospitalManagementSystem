@@ -4,6 +4,8 @@
  */
 package ui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jaymithani
@@ -26,21 +28,131 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelHome = new javax.swing.JPanel();
+        lblLoginPassword = new javax.swing.JLabel();
+        lblLoginHeader = new javax.swing.JLabel();
+        txtLoginPassword = new javax.swing.JTextField();
+        txtLoginId = new javax.swing.JTextField();
+        lblLoginID = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panelHome.setBackground(new java.awt.Color(51, 51, 51));
+
+        lblLoginPassword.setBackground(new java.awt.Color(255, 255, 255));
+        lblLoginPassword.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        lblLoginPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblLoginPassword.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoginPassword.setText("Password");
+
+        lblLoginHeader.setBackground(new java.awt.Color(255, 255, 255));
+        lblLoginHeader.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
+        lblLoginHeader.setForeground(new java.awt.Color(255, 255, 255));
+        lblLoginHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoginHeader.setText("Login");
+
+        txtLoginPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLoginPasswordActionPerformed(evt);
+            }
+        });
+
+        txtLoginId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLoginIdActionPerformed(evt);
+            }
+        });
+
+        lblLoginID.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        lblLoginID.setForeground(new java.awt.Color(255, 255, 255));
+        lblLoginID.setText("ID");
+
+        btnSubmit.setText("SUBMIT");
+        btnSubmit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelHomeLayout = new javax.swing.GroupLayout(panelHome);
+        panelHome.setLayout(panelHomeLayout);
+        panelHomeLayout.setHorizontalGroup(
+            panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(254, 254, 254))
+            .addGroup(panelHomeLayout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoginID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblLoginHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginId, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(153, Short.MAX_VALUE))
+        );
+
+        panelHomeLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblLoginID, lblLoginPassword});
+
+        panelHomeLayout.setVerticalGroup(
+            panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHomeLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(lblLoginHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtLoginId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLoginID))
+                .addGap(18, 18, 18)
+                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
+        );
+
+        panelHomeLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblLoginID, lblLoginPassword});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(panelHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(panelHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtLoginIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLoginIdActionPerformed
+
+    private void txtLoginPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLoginPasswordActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        String uID = txtLoginId.getText();
+        String password = txtLoginId.getText();
+        if(uID.equals("ID1")){
+            JOptionPane.showMessageDialog(null, "Name : Logged In as User", "Error", JOptionPane.ERROR_MESSAGE);
+            this.setVisible(false);
+            new DoctorDashboard().setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +190,12 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JLabel lblLoginHeader;
+    private javax.swing.JLabel lblLoginID;
+    private javax.swing.JLabel lblLoginPassword;
+    private javax.swing.JPanel panelHome;
+    private javax.swing.JTextField txtLoginId;
+    private javax.swing.JTextField txtLoginPassword;
     // End of variables declaration//GEN-END:variables
 }
