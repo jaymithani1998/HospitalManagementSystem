@@ -149,7 +149,7 @@ public class Login extends javax.swing.JFrame {
         String password = txtLoginId.getText();
         boolean check= Main.pDirectory.validateCredentials(uID, password);
         if(check){
-            new DoctorDashboard().setVisible(true);
+            new AdminDashboard().setVisible(true);
             this.dispose();
         }
         else{

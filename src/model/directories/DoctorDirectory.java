@@ -5,6 +5,7 @@
 package model.directories;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import model.entities.Doctor;
 
 /**
@@ -18,6 +19,18 @@ public class DoctorDirectory {
         this.directory = new HashMap<String,Doctor>();
     }
 
+    public void addDoctor(Doctor d){
+        for(String id: this.directory.keySet()){
+            Doctor doc = this.directory.get(id);
+            if(doc.getName().equals(d.getName()) && doc.getRole().equals("Doctor")){
+                JOptionPane.showMessageDialog(null, "Doctor Already Exists" + doc.getId());
+                return;
+            }
+        }
+        this.directory.put(d.getId(), d);
+    }
+    
+    
     @Override
     public String toString() {
         return "DoctorDirectory{" + "directory=" + directory + '}';

@@ -5,6 +5,7 @@
 package model.directories;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import model.entities.Community;
 
 /**
@@ -16,6 +17,17 @@ public class CommunityDirectory {
     
     public CommunityDirectory(){
         this.directory = new HashMap<String,Community>();
+    }
+    
+    public void addCommunity(Community c){
+        for(String id: this.directory.keySet()){
+            Community com = this.directory.get(id);
+            if(com.getCityName().equals(c.getCityName()) && com.getName().equals(c.getName())){
+                JOptionPane.showMessageDialog(null, "Community Already Exist" + com.getId());
+                return;
+            }
+        }
+        this.directory.put(c.getId(), c);
     }
 
     @Override

@@ -11,6 +11,15 @@ package model.entities;
 public class City {
     
     private String cityName;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCityName() {
         return cityName;
@@ -22,7 +31,8 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" + "cityName=" + cityName + '}';
+        return "City{" + "cityName=" + cityName + ", id=" + id + '}';
     }
+    
     
 }

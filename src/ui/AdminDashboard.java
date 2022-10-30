@@ -4,6 +4,9 @@
  */
 package ui;
 
+import java.awt.Component;
+import ui.CreatePanels.CreateCity;
+
 /**
  *
  * @author jaymithani
@@ -38,6 +41,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCity.setText("City");
+        btnCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCityActionPerformed(evt);
+            }
+        });
 
         btnCommunity.setText("Community");
 
@@ -111,6 +119,13 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void btnCommunityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityAdminActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCommunityAdminActionPerformed
+
+    private void btnCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCityActionPerformed
+        // TODO add your handling code here:
+        Component createPanel = new CreateCity();
+        new Dashboard(createPanel).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCityActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
 package model.directories;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import model.entities.City;
 
 /**
@@ -19,6 +20,17 @@ public class CityDirectory {
         this.directory = new HashMap<String, City>();
     }
 
+    public void addCity(City c){
+        for(String id: this.directory.keySet()){
+            City city = this.directory.get(id);
+            if(city.getCityName().equals(c.getCityName())){
+                JOptionPane.showMessageDialog(null, "City Name already exists" + city.getCityName());
+                return;
+            }
+        }
+        this.directory.put(c.getId(), c);
+    }
+    
     @Override
     public String toString() {
         return "CityDirectory{" + "directory=" + directory + '}';

@@ -18,6 +18,10 @@ public class EncounterDirectory {
         this.directory = new HashMap<String, Encounter>();
     }
 
+    public void addEncounter(Encounter e){
+        this.directory.put(e.getId(), e);
+    }
+    
     @Override
     public String toString() {
         return "EncounterDirectory{" + "directory=" + directory + '}';
