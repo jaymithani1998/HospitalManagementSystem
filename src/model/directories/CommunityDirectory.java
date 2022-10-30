@@ -7,6 +7,7 @@ package model.directories;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import model.entities.Community;
+import util.Utility;
 
 /**
  *
@@ -27,7 +28,9 @@ public class CommunityDirectory {
                 return;
             }
         }
+        c.setId(Utility.getInstance().getNextCommunityId());
         this.directory.put(c.getId(), c);
+        System.out.println("Community Directory:"+this.directory);
     }
 
     @Override

@@ -5,6 +5,12 @@
 package ui;
 
 import ui.Frames.CityDashboard;
+import ui.Frames.CommunityAdminDashboard;
+import ui.Frames.CommunityDashboard;
+import ui.Frames.DoctorDashboard;
+import ui.Frames.HospitalDashboard;
+import ui.Frames.PatientDashboard;
+import ui.Frames.VitalSignsDashboard;
 
 /**
  *
@@ -35,7 +41,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnHospital = new javax.swing.JButton();
         btnPatient = new javax.swing.JButton();
         btnCommunityAdmin = new javax.swing.JButton();
-        btnVitalSigns = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,12 +52,32 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
 
         btnCommunity.setText("Community");
+        btnCommunity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCommunityActionPerformed(evt);
+            }
+        });
 
         btnDoctor.setText("Doctor");
+        btnDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoctorActionPerformed(evt);
+            }
+        });
 
         btnHospital.setText("Hospital");
+        btnHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHospitalActionPerformed(evt);
+            }
+        });
 
         btnPatient.setText("Patient");
+        btnPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPatientActionPerformed(evt);
+            }
+        });
 
         btnCommunityAdmin.setText("Community Admin");
         btnCommunityAdmin.addActionListener(new java.awt.event.ActionListener() {
@@ -60,8 +85,6 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnCommunityAdminActionPerformed(evt);
             }
         });
-
-        btnVitalSigns.setText("Vital Signs");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -80,9 +103,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(btnPatient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCommunityAdmin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVitalSigns)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,8 +115,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(btnDoctor)
                     .addComponent(btnHospital)
                     .addComponent(btnPatient)
-                    .addComponent(btnCommunityAdmin)
-                    .addComponent(btnVitalSigns))
+                    .addComponent(btnCommunityAdmin))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
 
@@ -117,6 +137,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void btnCommunityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityAdminActionPerformed
         // TODO add your handling code here:
+        new CommunityAdminDashboard().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCommunityAdminActionPerformed
 
     private void btnCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCityActionPerformed
@@ -125,6 +147,30 @@ public class AdminDashboard extends javax.swing.JFrame {
         new CityDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCityActionPerformed
+
+    private void btnCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityActionPerformed
+        // TODO add your handling code here:
+        new CommunityDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCommunityActionPerformed
+
+    private void btnHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalActionPerformed
+        // TODO add your handling code here:
+        new HospitalDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHospitalActionPerformed
+
+    private void btnDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorActionPerformed
+        // TODO add your handling code here:
+        new DoctorDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDoctorActionPerformed
+
+    private void btnPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientActionPerformed
+        // TODO add your handling code here:
+        new PatientDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPatientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +214,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnDoctor;
     private javax.swing.JButton btnHospital;
     private javax.swing.JButton btnPatient;
-    private javax.swing.JButton btnVitalSigns;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,24 +4,19 @@
  */
 package ui.Frames;
 
-import java.awt.TextField;
-import javax.swing.table.DefaultTableModel;
 import main.Main;
-import model.directories.CityDirectory;
-import model.entities.City;
-import model.entities.Community;
+import model.entities.Person;
 
 /**
  *
  * @author jaymithani
  */
-public class CityDashboard extends javax.swing.JFrame {
+public class CommunityAdminDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form CityDashboard
+     * Creates new form CommunityAdminDashboard
      */
-    
-    public CityDashboard() {
+    public CommunityAdminDashboard() {
         initComponents();
     }
 
@@ -41,8 +36,14 @@ public class CityDashboard extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
-        txtCityName = new javax.swing.JTextField();
-        lblCity = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        lblUserName = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblRole = new javax.swing.JLabel();
+        comboBoxRole = new javax.swing.JComboBox<>();
+        txtUserName = new javax.swing.JTextField();
+        txtPersonName = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +57,7 @@ public class CityDashboard extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "ID", "City Name"
+                "ID", "Username"
             }
         ));
         tableView.setViewportView(tblView);
@@ -101,36 +102,71 @@ public class CityDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
+        lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPassword.setText("Password");
 
-        txtCityName.addActionListener(new java.awt.event.ActionListener() {
+        lblUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblUserName.setText("Username");
+
+        lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblName.setText("Name");
+
+        lblRole.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblRole.setText("Role");
+
+        comboBoxRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "System Admin", "Community Admin" }));
+
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCityNameActionPerformed(evt);
+                txtUserNameActionPerformed(evt);
             }
         });
-
-        lblCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCity.setText("City");
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);
         DashboardRightPanelLayout.setHorizontalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(lblCity)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(16, 16, 16)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(26, 26, 26)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(comboBoxRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
+
+        DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPassword, txtPersonName, txtUserName});
+
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUserName)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(lblPassword))
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity)
-                    .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(434, Short.MAX_VALUE))
+                    .addComponent(lblName)
+                    .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRole)
+                    .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(336, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -142,15 +178,15 @@ public class CityDashboard extends javax.swing.JFrame {
                 .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(DashboardRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DashboardRightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DashboardRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,14 +194,17 @@ public class CityDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        City c = new City();
-        c.setCityName(txtCityName.getText());
-        Main.cityDirectory.addCity(c);
+        Person p = new Person();
+        p.setName(txtPersonName.getText());
+        p.setUserName(txtUserName.getText());
+        p.setPassword(txtPassword.getText());
+        p.setRole(comboBoxRole.getSelectedItem().toString());
+        Main.pDirectory.addPerson(p);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCityNameActionPerformed
+    }//GEN-LAST:event_txtUserNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,20 +223,20 @@ public class CityDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CityDashboard().setVisible(true);
+                new CommunityAdminDashboard().setVisible(true);
             }
         });
     }
@@ -207,25 +246,16 @@ public class CityDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel lblCity;
+    private javax.swing.JComboBox<String> comboBoxRole;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblRole;
+    private javax.swing.JLabel lblUserName;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
-    private javax.swing.JTextField txtCityName;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtPersonName;
     private javax.swing.JTextField txtSearchField;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
-
-//    private void populateTable() {
-//        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
-//        model.setRowCount(0);
-//        
-//        for (Community c : Main.comDircetDirectory. getDirectory()){
-//            Object[] row= new Object[4];
-//            row[0] = e;
-//            row[1] = e.getEmpId();
-//            row[2] = e.getEmpLevel();
-//            row[3] = e.getEmpTeamInfo();
-//            model.addRow(row);
-//        }
-//        
-//    }
 }

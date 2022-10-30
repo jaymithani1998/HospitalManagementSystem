@@ -53,12 +53,14 @@ public class Login extends javax.swing.JFrame {
         lblLoginHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLoginHeader.setText("Login");
 
+        txtLoginPassword.setText("admin");
         txtLoginPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginPasswordActionPerformed(evt);
             }
         });
 
+        txtLoginId.setText("admin");
         txtLoginId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginIdActionPerformed(evt);

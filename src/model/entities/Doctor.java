@@ -14,12 +14,9 @@ public class Doctor extends Person{
     private String specialization;
     private int experience;
     private String gender;
-    private int hospitalId;
+    private String hospitalId;
 
-    @Override
-    public String toString() {
-        return "Doctor{" + "id=" + id + ", specialization=" + specialization + ", experience=" + experience + ", gender=" + gender + ", hospitalId=" + hospitalId + '}';
-    }
+   
 
     public String getId() {
         return id;
@@ -53,13 +50,12 @@ public class Doctor extends Person{
         this.gender = gender;
     }
 
-    public int getHospitalId() {
-        return hospitalId;
+    @Override
+    public String toString() {
+        return "Doctor{" + "id=" + id + ", specialization=" + specialization + ", experience=" + experience + ", gender=" + gender + ", hospitalId=" + hospitalId + '}';
     }
 
-    public void setHospitalId(int hospitalId) {
-        this.hospitalId = hospitalId;
-    }
+   
     
     
 }

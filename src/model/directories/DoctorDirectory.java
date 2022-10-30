@@ -28,6 +28,7 @@ public class DoctorDirectory {
             }
         }
         this.directory.put(d.getId(), d);
+        
     }
     
     

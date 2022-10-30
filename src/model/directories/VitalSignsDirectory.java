@@ -19,6 +19,12 @@ public class VitalSignsDirectory {
         this.directory = new HashMap<String, VitalSigns>();
     }
 
+//    public void addVitals(VitalSigns v){
+//        
+//        this.directory.put(v.getId(), v);
+//        System.out.println("City Dircetory"+this.directory);
+//    }
+//    
     @Override
     public String toString() {
         return "VitalSignsDirectory{" + "directory=" + directory + '}';

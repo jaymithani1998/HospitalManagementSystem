@@ -7,6 +7,7 @@ package model.directories;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import model.entities.Hospital;
+import util.Utility;
 
 /**
  *
@@ -27,7 +28,9 @@ public class HospitalDirectory {
                 return;
             }
         }
+        h.setId(Utility.getInstance().getNextHospitalId());
         this.directory.put(h.getId(), h);
+        System.out.println("City Dircetory"+this.directory);
     }
 
     @Override

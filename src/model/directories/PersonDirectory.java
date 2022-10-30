@@ -6,6 +6,7 @@ package model.directories;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import model.entities.Person;
+import util.Utility;
 
 /**
  *
@@ -33,7 +34,9 @@ public class PersonDirectory {
                 return;
             }
         }
+        
         this.directory.put(p.getId(), p);
+        System.out.println("City Dircetory"+this.directory);
     }
 
     public boolean validateCredentials(String uname, String password){

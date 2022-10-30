@@ -54,9 +54,7 @@
                   <Component id="btnPatient" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnCommunityAdmin" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnVitalSigns" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="103" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -71,7 +69,6 @@
                       <Component id="btnHospital" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnPatient" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCommunityAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnVitalSigns" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="96" max="32767" attributes="0"/>
               </Group>
@@ -91,21 +88,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Community"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCommunityActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDoctor">
           <Properties>
             <Property name="text" type="java.lang.String" value="Doctor"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDoctorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnHospital">
           <Properties>
             <Property name="text" type="java.lang.String" value="Hospital"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHospitalActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPatient">
           <Properties>
             <Property name="text" type="java.lang.String" value="Patient"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPatientActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCommunityAdmin">
           <Properties>
@@ -114,11 +123,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCommunityAdminActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnVitalSigns">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Vital Signs"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

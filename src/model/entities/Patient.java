@@ -8,7 +8,7 @@ package model.entities;
  *
  * @author jaymithani
  */
-public class Patient {
+public class Patient extends Person{
     //age, gender, community id, cityid, houseid, patientid
     private int age;
     private String communityId;

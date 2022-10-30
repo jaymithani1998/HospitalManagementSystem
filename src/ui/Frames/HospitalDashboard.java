@@ -4,24 +4,19 @@
  */
 package ui.Frames;
 
-import java.awt.TextField;
-import javax.swing.table.DefaultTableModel;
 import main.Main;
-import model.directories.CityDirectory;
-import model.entities.City;
-import model.entities.Community;
+import model.entities.Hospital;
 
 /**
  *
  * @author jaymithani
  */
-public class CityDashboard extends javax.swing.JFrame {
+public class HospitalDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form CityDashboard
+     * Creates new form HospitalDashboard
      */
-    
-    public CityDashboard() {
+    public HospitalDashboard() {
         initComponents();
     }
 
@@ -41,8 +36,12 @@ public class CityDashboard extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
-        txtCityName = new javax.swing.JTextField();
-        lblCity = new javax.swing.JLabel();
+        lblCommunityId = new javax.swing.JLabel();
+        lblHospitalName = new javax.swing.JLabel();
+        lblCityId = new javax.swing.JLabel();
+        txtHospitalName = new javax.swing.JTextField();
+        txtCityId = new javax.swing.JTextField();
+        txtCommunityId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,13 +49,13 @@ public class CityDashboard extends javax.swing.JFrame {
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "City Name"
+                "ID", "Hospital Name", "City ID"
             }
         ));
         tableView.setViewportView(tblView);
@@ -101,36 +100,60 @@ public class CityDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
+        lblCommunityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCommunityId.setText("Community ID");
 
-        txtCityName.addActionListener(new java.awt.event.ActionListener() {
+        lblHospitalName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblHospitalName.setText("Hospital Name");
+
+        lblCityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCityId.setText("City ID");
+
+        txtHospitalName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCityNameActionPerformed(evt);
+                txtHospitalNameActionPerformed(evt);
             }
         });
-
-        lblCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCity.setText("City");
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);
         DashboardRightPanelLayout.setHorizontalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(lblCity)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(16, 16, 16)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHospitalName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCommunityId, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCityId, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(26, 26, 26)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCommunityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHospitalName, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
+
+        DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtCityId, txtCommunityId, txtHospitalName});
+
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHospitalName)
+                    .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(lblCommunityId))
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCommunityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity)
-                    .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(434, Short.MAX_VALUE))
+                    .addComponent(lblCityId)
+                    .addComponent(txtCityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(365, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -148,9 +171,9 @@ public class CityDashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DashboardRightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DashboardRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,14 +181,16 @@ public class CityDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        City c = new City();
-        c.setCityName(txtCityName.getText());
-        Main.cityDirectory.addCity(c);
+        Hospital h = new Hospital();
+        h.setName(txtHospitalName.getText());
+        h.setCommunityId(txtCommunityId.getText());
+        h.setCityId(txtCityId.getText());
+        Main.hosDirectory.addHospital(h);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
+    private void txtHospitalNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHospitalNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCityNameActionPerformed
+    }//GEN-LAST:event_txtHospitalNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,20 +209,20 @@ public class CityDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CityDashboard().setVisible(true);
+                new HospitalDashboard().setVisible(true);
             }
         });
     }
@@ -207,25 +232,14 @@ public class CityDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblCityId;
+    private javax.swing.JLabel lblCommunityId;
+    private javax.swing.JLabel lblHospitalName;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
-    private javax.swing.JTextField txtCityName;
+    private javax.swing.JTextField txtCityId;
+    private javax.swing.JTextField txtCommunityId;
+    private javax.swing.JTextField txtHospitalName;
     private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables
-
-//    private void populateTable() {
-//        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
-//        model.setRowCount(0);
-//        
-//        for (Community c : Main.comDircetDirectory. getDirectory()){
-//            Object[] row= new Object[4];
-//            row[0] = e;
-//            row[1] = e.getEmpId();
-//            row[2] = e.getEmpLevel();
-//            row[3] = e.getEmpTeamInfo();
-//            model.addRow(row);
-//        }
-//        
-//    }
 }

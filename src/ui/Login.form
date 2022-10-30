@@ -118,11 +118,17 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLoginPassword">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="admin"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoginPasswordActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLoginId">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="admin"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoginIdActionPerformed"/>
           </Events>

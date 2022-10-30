@@ -4,24 +4,19 @@
  */
 package ui.Frames;
 
-import java.awt.TextField;
-import javax.swing.table.DefaultTableModel;
 import main.Main;
-import model.directories.CityDirectory;
-import model.entities.City;
 import model.entities.Community;
 
 /**
  *
  * @author jaymithani
  */
-public class CityDashboard extends javax.swing.JFrame {
+public class CommunityDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form CityDashboard
+     * Creates new form CommunityDashboard
      */
-    
-    public CityDashboard() {
+    public CommunityDashboard() {
         initComponents();
     }
 
@@ -41,8 +36,14 @@ public class CityDashboard extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
-        txtCityName = new javax.swing.JTextField();
-        lblCity = new javax.swing.JLabel();
+        txtCommunityName = new javax.swing.JTextField();
+        lblCommunityName = new javax.swing.JLabel();
+        lblCommunityAdmin = new javax.swing.JLabel();
+        txtCommunityAdmin = new javax.swing.JTextField();
+        lblCommunityCity = new javax.swing.JLabel();
+        txtCommunityCity = new javax.swing.JTextField();
+        lblCommunityZipcode = new javax.swing.JLabel();
+        txtCommunityZipcode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,13 +51,13 @@ public class CityDashboard extends javax.swing.JFrame {
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "City Name"
+                "ID", "Community", "City"
             }
         ));
         tableView.setViewportView(tblView);
@@ -103,34 +104,91 @@ public class CityDashboard extends javax.swing.JFrame {
 
         DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
 
-        txtCityName.addActionListener(new java.awt.event.ActionListener() {
+        txtCommunityName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCityNameActionPerformed(evt);
+                txtCommunityNameActionPerformed(evt);
             }
         });
 
-        lblCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCity.setText("City");
+        lblCommunityName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCommunityName.setText("Community");
+
+        lblCommunityAdmin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCommunityAdmin.setText("Admin");
+
+        txtCommunityAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCommunityAdminActionPerformed(evt);
+            }
+        });
+
+        lblCommunityCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCommunityCity.setText("City");
+
+        txtCommunityCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCommunityCityActionPerformed(evt);
+            }
+        });
+
+        lblCommunityZipcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCommunityZipcode.setText("Zipcode");
+
+        txtCommunityZipcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCommunityZipcodeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);
         DashboardRightPanelLayout.setHorizontalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanelLayout.createSequentialGroup()
                 .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(lblCity)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addComponent(lblCommunityZipcode)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCommunityZipcode, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                            .addComponent(lblCommunityCity)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCommunityCity, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                            .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblCommunityName)
+                                .addComponent(lblCommunityAdmin))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtCommunityAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(54, 54, 54))
         );
+
+        DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblCommunityAdmin, lblCommunityCity, lblCommunityName, lblCommunityZipcode});
+
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity)
-                    .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(434, Short.MAX_VALUE))
+                    .addComponent(lblCommunityName)
+                    .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCommunityAdmin)
+                    .addComponent(txtCommunityAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCommunityCity)
+                    .addComponent(txtCommunityCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCommunityZipcode)
+                    .addComponent(txtCommunityZipcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,14 +216,29 @@ public class CityDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        City c = new City();
-        c.setCityName(txtCityName.getText());
-        Main.cityDirectory.addCity(c);
+       Community c = new Community();
+       c.setAdmin(txtCommunityAdmin.getText());
+       c.setCityName(txtCommunityCity.getText());
+       c.setName(txtCommunityName.getText());
+       c.setZipcode(Integer.parseInt(txtCommunityZipcode.getText()));
+       Main.comDircetDirectory.addCommunity(c);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
+    private void txtCommunityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCityNameActionPerformed
+    }//GEN-LAST:event_txtCommunityNameActionPerformed
+
+    private void txtCommunityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCommunityAdminActionPerformed
+
+    private void txtCommunityCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityCityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCommunityCityActionPerformed
+
+    private void txtCommunityZipcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityZipcodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCommunityZipcodeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,20 +257,20 @@ public class CityDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CityDashboard().setVisible(true);
+                new CommunityDashboard().setVisible(true);
             }
         });
     }
@@ -207,25 +280,16 @@ public class CityDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblCommunityAdmin;
+    private javax.swing.JLabel lblCommunityCity;
+    private javax.swing.JLabel lblCommunityName;
+    private javax.swing.JLabel lblCommunityZipcode;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
-    private javax.swing.JTextField txtCityName;
+    private javax.swing.JTextField txtCommunityAdmin;
+    private javax.swing.JTextField txtCommunityCity;
+    private javax.swing.JTextField txtCommunityName;
+    private javax.swing.JTextField txtCommunityZipcode;
     private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables
-
-//    private void populateTable() {
-//        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
-//        model.setRowCount(0);
-//        
-//        for (Community c : Main.comDircetDirectory. getDirectory()){
-//            Object[] row= new Object[4];
-//            row[0] = e;
-//            row[1] = e.getEmpId();
-//            row[2] = e.getEmpLevel();
-//            row[3] = e.getEmpTeamInfo();
-//            model.addRow(row);
-//        }
-//        
-//    }
 }
