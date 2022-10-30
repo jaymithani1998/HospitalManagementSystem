@@ -10,6 +10,7 @@ import model.directories.CityDirectory;
 import model.directories.CommunityDirectory;
 import model.directories.DoctorDirectory;
 import model.directories.HospitalDirectory;
+import model.directories.HouseDirectory;
 import model.directories.PatientDirectory;
 import model.directories.PersonDirectory;
 import model.directories.VitalSignsDirectory;
@@ -28,6 +29,7 @@ public class Main {
     public static DoctorDirectory doctorDirectory = new DoctorDirectory();
     public static PatientDirectory patDirectory = new PatientDirectory();
     public static VitalSignsDirectory vitalDirceDirectory = new VitalSignsDirectory();
+    public static HouseDirectory houseDirectory = new HouseDirectory();
     public static void main(String[] args) {
         new Login().setVisible(true);
     }

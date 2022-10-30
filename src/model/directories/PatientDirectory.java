@@ -6,6 +6,7 @@ package model.directories;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import main.Main;
 import model.entities.Patient;
 import util.Utility;
 
@@ -29,11 +30,21 @@ public class PatientDirectory {
                 return;
             }
         }
-        p.setId(Utility.getInstance().getNextPatientId());
+        p.setPatientId(Utility.getInstance().getNextPatientId());
+        Main.pDirectory.addPerson(p);
         this.directory.put(p.getId(), p);
         System.out.println("Patient Directory"+this.directory);
     }
 
+    public HashMap<String, Patient> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(HashMap<String, Patient> directory) {
+        this.directory = directory;
+    }
+
+    
     @Override
     public String toString() {
         return "PatientDirectory{" + "directory=" + directory + '}';

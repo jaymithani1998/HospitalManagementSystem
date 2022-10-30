@@ -6,6 +6,7 @@ package model.directories;
 
 import java.util.HashMap;
 import model.entities.Encounter;
+import util.Utility;
 
 /**
  *
@@ -19,6 +20,7 @@ public class EncounterDirectory {
     }
 
     public void addEncounter(Encounter e){
+        e.setId(Utility.getInstance().getNextEncounterId());
         this.directory.put(e.getId(), e);
     }
     

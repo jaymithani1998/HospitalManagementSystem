@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model.directories;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import model.entities.Person;
@@ -23,6 +24,7 @@ public class PersonDirectory {
         person.setId("adm101");
         person.setPassword("admin");
         person.setName("Jay");
+        person.setRole("System Admin");
         addPerson(person);
     }
     
@@ -34,11 +36,22 @@ public class PersonDirectory {
                 return;
             }
         }
-        
+        p.setId(Utility.getInstance().getNextPersonId());
         this.directory.put(p.getId(), p);
         System.out.println("City Dircetory"+this.directory);
     }
 
+    public String[] getAdminsForCommunitiesAdminComboBox(){
+        ArrayList<String> returnResult = new ArrayList<>();
+        for(String id: this.directory.keySet()){
+            Person p = this.directory.get(id);
+            if(p.getRole().equals("Community Admin")){
+                returnResult.add(p.getName()+ ":" + p.getId());
+            }
+        }
+        return returnResult.toArray(new String[0]);
+    }
+    
     public boolean validateCredentials(String uname, String password){
         for(String id: this.directory.keySet()){
             Person per = this.directory.get(id);
@@ -47,6 +60,14 @@ public class PersonDirectory {
             }
         }
         return false;
+    }
+
+    public HashMap<String, Person> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(HashMap<String, Person> directory) {
+        this.directory = directory;
     }
     
     

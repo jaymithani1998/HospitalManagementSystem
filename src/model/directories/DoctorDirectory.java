@@ -6,7 +6,10 @@ package model.directories;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import main.Main;
 import model.entities.Doctor;
+import model.entities.Person;
+import util.Utility;
 
 /**
  *
@@ -27,8 +30,22 @@ public class DoctorDirectory {
                 return;
             }
         }
+        d.setId(Utility.getInstance().getNextDoctorId());
         this.directory.put(d.getId(), d);
-        
+        Main.pDirectory.addPerson(d);
+//        Person p = new Person();
+//        p.setName(d.getName());
+//        p.setUserName(d.getUserName());
+//        p.setPassword(txtPassword.getText());
+//        p.setRole("Doctor");
+    }
+
+    public HashMap<String, Doctor> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(HashMap<String, Doctor> directory) {
+        this.directory = directory;
     }
     
     

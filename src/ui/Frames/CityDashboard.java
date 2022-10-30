@@ -5,11 +5,13 @@
 package ui.Frames;
 
 import java.awt.TextField;
+import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
 import model.directories.CityDirectory;
 import model.entities.City;
 import model.entities.Community;
+import ui.AdminDashboard;
 
 /**
  *
@@ -23,6 +25,7 @@ public class CityDashboard extends javax.swing.JFrame {
     
     public CityDashboard() {
         initComponents();
+        populateTable();
     }
 
     /**
@@ -69,6 +72,11 @@ public class CityDashboard extends javax.swing.JFrame {
         });
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DashboardLeftPanelLayout = new javax.swing.GroupLayout(DashboardLeftPanel);
         DashboardLeftPanel.setLayout(DashboardLeftPanelLayout);
@@ -161,11 +169,17 @@ public class CityDashboard extends javax.swing.JFrame {
         City c = new City();
         c.setCityName(txtCityName.getText());
         Main.cityDirectory.addCity(c);
+        populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCityNameActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        new AdminDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,18 +228,16 @@ public class CityDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables
 
-//    private void populateTable() {
-//        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
-//        model.setRowCount(0);
-//        
-//        for (Community c : Main.comDircetDirectory. getDirectory()){
-//            Object[] row= new Object[4];
-//            row[0] = e;
-//            row[1] = e.getEmpId();
-//            row[2] = e.getEmpLevel();
-//            row[3] = e.getEmpTeamInfo();
-//            model.addRow(row);
-//        }
-//        
-//    }
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        model.setRowCount(0);
+        HashMap<String, City> cityDirectory = Main.cityDirectory.getDirectory();
+        for (String id: cityDirectory.keySet()){
+            Object[] row= new Object[2];
+            City c = cityDirectory.get(id);
+            row[0] = c.getId();
+            row[1] = c.getCityName();
+            model.addRow(row);
+        }
+    }
 }

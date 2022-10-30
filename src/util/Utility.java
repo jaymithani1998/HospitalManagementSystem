@@ -18,6 +18,7 @@ public class Utility {
     public static int HOUSE_ID = 1;
     public static int ENCOUNTER_ID = 1;
     public static int VITAL_ID = 1;
+    public static int PERSON_ID=1;
     
     public static Utility instance = new Utility();
     
@@ -75,6 +76,12 @@ public class Utility {
         String id = ""+VITAL_ID;
         VITAL_ID += 1;
         return "vs_"+id;
+    }
+
+    public String getNextPersonId(){
+        String id = ""+PERSON_ID;
+        PERSON_ID += 1;
+        return "per_"+id;
     }
     
     public static boolean isNumeric(String strNum) {

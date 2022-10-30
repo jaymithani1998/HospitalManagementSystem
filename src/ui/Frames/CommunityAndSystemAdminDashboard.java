@@ -4,20 +4,24 @@
  */
 package ui.Frames;
 
+import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
 import main.Main;
 import model.entities.Person;
+import ui.AdminDashboard;
 
 /**
  *
  * @author jaymithani
  */
-public class CommunityAdminDashboard extends javax.swing.JFrame {
+public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
 
     /**
      * Creates new form CommunityAdminDashboard
      */
-    public CommunityAdminDashboard() {
+    public CommunityAndSystemAdminDashboard() {
         initComponents();
+        populateTable();
     }
 
     /**
@@ -34,7 +38,7 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
         tableView = new javax.swing.JScrollPane();
         tblView = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
-        btnBack = new javax.swing.JButton();
+        btnBack1 = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         lblPassword = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
@@ -69,7 +73,12 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("Back");
+        btnBack1.setText("Back");
+        btnBack1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBack1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DashboardLeftPanelLayout = new javax.swing.GroupLayout(DashboardLeftPanel);
         DashboardLeftPanel.setLayout(DashboardLeftPanelLayout);
@@ -85,7 +94,7 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
                 .addGap(114, 114, 114)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBack)
+                .addComponent(btnBack1)
                 .addContainerGap(176, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
@@ -98,7 +107,7 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
-                    .addComponent(btnBack))
+                    .addComponent(btnBack1))
                 .addContainerGap())
         );
 
@@ -200,11 +209,17 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
         p.setPassword(txtPassword.getText());
         p.setRole(comboBoxRole.getSelectedItem().toString());
         Main.pDirectory.addPerson(p);
+        populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
+        new AdminDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBack1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -223,20 +238,23 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAndSystemAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAndSystemAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAndSystemAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CommunityAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAndSystemAdminDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CommunityAdminDashboard().setVisible(true);
+                new CommunityAndSystemAdminDashboard().setVisible(true);
             }
         });
     }
@@ -244,7 +262,7 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DashboardLeftPanel;
     private javax.swing.JPanel DashboardRightPanel;
-    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack1;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboBoxRole;
     private javax.swing.JLabel lblName;
@@ -258,4 +276,21 @@ public class CommunityAdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField txtSearchField;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        model.setRowCount(0);
+        HashMap<String, Person> perDirectory = Main.pDirectory.getDirectory();
+        for (String id: perDirectory.keySet()){
+            
+//            if(perDirectory.get(id).getRole().equals("System Admin") || perDirectory.get(id).getRole().equals("Community Admin")){
+                Object[] row= new Object[2];
+                Person p = perDirectory.get(id);
+                row[0] = p.getId();
+                row[1] = p.getUserName();
+                model.addRow(row);
+//            }
+                
+        }
+    }
 }

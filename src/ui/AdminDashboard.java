@@ -4,14 +4,14 @@
  */
 package ui;
 
+import javax.swing.JPanel;
 import ui.Frames.CityDashboard;
-import ui.Frames.CommunityAdminDashboard;
+import ui.Frames.CommunityAndSystemAdminDashboard;
 import ui.Frames.CommunityDashboard;
 import ui.Frames.DoctorDashboard;
 import ui.Frames.HospitalDashboard;
+import ui.Frames.HouseDashboard;
 import ui.Frames.PatientDashboard;
-import ui.Frames.VitalSignsDashboard;
-
 /**
  *
  * @author jaymithani
@@ -41,6 +41,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnHospital = new javax.swing.JButton();
         btnPatient = new javax.swing.JButton();
         btnCommunityAdmin = new javax.swing.JButton();
+        btnHouse = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,10 +81,17 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        btnCommunityAdmin.setText("Community Admin");
+        btnCommunityAdmin.setText("Admin");
         btnCommunityAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCommunityAdminActionPerformed(evt);
+            }
+        });
+
+        btnHouse.setText("House");
+        btnHouse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHouseActionPerformed(evt);
             }
         });
 
@@ -103,7 +112,9 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(btnPatient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCommunityAdmin)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnHouse)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,8 +126,20 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(btnDoctor)
                     .addComponent(btnHospital)
                     .addComponent(btnPatient)
-                    .addComponent(btnCommunityAdmin))
-                .addContainerGap(96, Short.MAX_VALUE))
+                    .addComponent(btnCommunityAdmin)
+                    .addComponent(btnHouse))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 362, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,12 +147,18 @@ public class AdminDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 396, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,7 +166,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void btnCommunityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityAdminActionPerformed
         // TODO add your handling code here:
-        new CommunityAdminDashboard().setVisible(true);
+        new CommunityAndSystemAdminDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCommunityAdminActionPerformed
 
@@ -171,6 +200,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         new PatientDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPatientActionPerformed
+
+    private void btnHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHouseActionPerformed
+        // TODO add your handling code here:
+        new HouseDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnHouseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,7 +248,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnCommunityAdmin;
     private javax.swing.JButton btnDoctor;
     private javax.swing.JButton btnHospital;
+    private javax.swing.JButton btnHouse;
     private javax.swing.JButton btnPatient;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

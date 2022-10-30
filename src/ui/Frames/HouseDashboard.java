@@ -8,23 +8,24 @@ import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
-import model.entities.Hospital;
+import model.entities.House;
+import model.entities.Patient;
 import ui.AdminDashboard;
 
 /**
  *
  * @author jaymithani
  */
-public class HospitalDashboard extends javax.swing.JFrame {
+public class HouseDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form HospitalDashboard
+     * Creates new form HouseDashboard
      */
-    public HospitalDashboard() {
+    public HouseDashboard() {
         initComponents();
+        populateTable();
         populateComboBoxCity();
         populateCommunityComboBox();
-        populateTable();
     }
 
     /**
@@ -44,9 +45,9 @@ public class HospitalDashboard extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         lblCommunityId = new javax.swing.JLabel();
-        lblHospitalName = new javax.swing.JLabel();
+        lblAptNumber = new javax.swing.JLabel();
         lblCityId = new javax.swing.JLabel();
-        txtHospitalName = new javax.swing.JTextField();
+        txtAptNumber = new javax.swing.JTextField();
         comboBoxCommunity = new javax.swing.JComboBox<>();
         comboBoxCity = new javax.swing.JComboBox<>();
 
@@ -62,7 +63,7 @@ public class HospitalDashboard extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Hospital Name", "City ID"
+                "ID", "Apartment Number", "City ID"
             }
         ));
         tableView.setViewportView(tblView);
@@ -115,15 +116,15 @@ public class HospitalDashboard extends javax.swing.JFrame {
         lblCommunityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityId.setText("Community ID");
 
-        lblHospitalName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblHospitalName.setText("Hospital Name");
+        lblAptNumber.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAptNumber.setText("Hospital Name");
 
         lblCityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCityId.setText("City ID");
 
-        txtHospitalName.addActionListener(new java.awt.event.ActionListener() {
+        txtAptNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHospitalNameActionPerformed(evt);
+                txtAptNumberActionPerformed(evt);
             }
         });
 
@@ -146,27 +147,24 @@ public class HospitalDashboard extends javax.swing.JFrame {
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHospitalName, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblAptNumber, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblCommunityId, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblCityId, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(26, 26, 26)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAptNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(comboBoxCity, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboBoxCommunity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
-
-        DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {comboBoxCity, comboBoxCommunity, txtHospitalName});
-
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(73, 73, 73)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHospitalName)
-                    .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAptNumber)
+                    .addComponent(txtAptNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DashboardRightPanelLayout.createSequentialGroup()
@@ -205,22 +203,26 @@ public class HospitalDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Hospital h = new Hospital();
-        h.setName(txtHospitalName.getText());
+        House h = new House();
+        h.setAptNumber(Integer.parseInt(txtAptNumber.getText()));
         h.setCommunityId(comboBoxCommunity.getSelectedItem().toString().split(":", 2)[1]);
         h.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
-        Main.hosDirectory.addHospital(h);
+        Main.houseDirectory.addHouse(h);
         populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void txtHospitalNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHospitalNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHospitalNameActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         new AdminDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtAptNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAptNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAptNumberActionPerformed
+
+    private void comboBoxCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCommunityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxCommunityActionPerformed
 
     private void comboBoxCityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxCityItemStateChanged
         populateCommunityComboBox();
@@ -238,11 +240,6 @@ public class HospitalDashboard extends javax.swing.JFrame {
         DefaultComboBoxModel model = new DefaultComboBoxModel(communityNames);
         comboBoxCommunity.setModel(model);
     }
-    
-    private void comboBoxCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCommunityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxCommunityActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -260,20 +257,20 @@ public class HospitalDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HouseDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HouseDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HouseDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HospitalDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HouseDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HospitalDashboard().setVisible(true);
+                new HouseDashboard().setVisible(true);
             }
         });
     }
@@ -285,25 +282,24 @@ public class HospitalDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboBoxCity;
     private javax.swing.JComboBox<String> comboBoxCommunity;
+    private javax.swing.JLabel lblAptNumber;
     private javax.swing.JLabel lblCityId;
     private javax.swing.JLabel lblCommunityId;
-    private javax.swing.JLabel lblHospitalName;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
-    private javax.swing.JTextField txtHospitalName;
+    private javax.swing.JTextField txtAptNumber;
     private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables
-
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         model.setRowCount(0);
-        HashMap<String, Hospital> hdir = Main.hosDirectory.getDirectory();
-        for (String id: hdir.keySet()){
+        HashMap<String, House> houseDir = Main.houseDirectory.getDirectory();
+        for (String id: houseDir.keySet()){
             Object[] row= new Object[3];
-            Hospital h = hdir.get(id);
-            row[0] = h.getId();
-            row[1] = h.getName();
-            row[2] = h.getCommunityId();
+            House h = houseDir.get(id);
+            row[0] = h.getAptNumber();
+            row[1] = h.getCommunityId();
+            row[2] = h.getCityId();
             model.addRow(row);
         }
     }

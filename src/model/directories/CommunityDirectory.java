@@ -4,8 +4,10 @@
  */
 package model.directories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import model.entities.City;
 import model.entities.Community;
 import util.Utility;
 
@@ -32,7 +34,27 @@ public class CommunityDirectory {
         this.directory.put(c.getId(), c);
         System.out.println("Community Directory:"+this.directory);
     }
+    
+    public String[] getCommunitiesForComboBox(String cityId){
+        ArrayList<String> returnResult = new ArrayList<>();
+        for(String id: this.directory.keySet()){
+            Community community = this.directory.get(id);
+            if(community.getCityId().equals(cityId)){
+                returnResult.add(community.getName()+ ":" + community.getId());
+            }
+        }
+        
+        return returnResult.toArray(new String[0]);
+    }
 
+    public HashMap<String, Community> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(HashMap<String, Community> directory) {
+        this.directory = directory;
+    }
+    
     @Override
     public String toString() {
         return "CommunityDirectory{" + "directory=" + directory + '}';

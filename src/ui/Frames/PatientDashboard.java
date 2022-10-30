@@ -4,8 +4,12 @@
  */
 package ui.Frames;
 
+import java.util.HashMap;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 import main.Main;
 import model.entities.Patient;
+import ui.AdminDashboard;
 
 /**
  *
@@ -18,8 +22,23 @@ public class PatientDashboard extends javax.swing.JFrame {
      */
     public PatientDashboard() {
         initComponents();
+        populateComboBoxCity();
+        populateCommunityComboBox();
+        populateTable();
     }
-
+    
+    public void populateComboBoxCity(){
+        String[] cityNames = Main.cityDirectory.getCitiesForComboBox();
+        DefaultComboBoxModel model = new DefaultComboBoxModel(cityNames);
+        comboBoxCity.setModel(model);
+    }
+    
+    public void populateCommunityComboBox(){
+        String cityId = comboBoxCity.getSelectedItem().toString().split(":", 2)[1];
+        String[] communityNames = Main.comDircetDirectory.getCommunitiesForComboBox(cityId);
+        DefaultComboBoxModel model = new DefaultComboBoxModel(communityNames);
+        comboBoxCommunity.setModel(model);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,31 +50,31 @@ public class PatientDashboard extends javax.swing.JFrame {
 
         DashboardLeftPanel1 = new javax.swing.JPanel();
         txtSearchField1 = new javax.swing.JTextField();
-        tableView1 = new javax.swing.JScrollPane();
-        tblView1 = new javax.swing.JTable();
-        btnUpdate1 = new javax.swing.JButton();
-        btnBack1 = new javax.swing.JButton();
+        tableView = new javax.swing.JScrollPane();
+        tblView = new javax.swing.JTable();
+        btnUpdate = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         DashboardRightPanel1 = new javax.swing.JPanel();
         txtAge = new javax.swing.JTextField();
         lblAge = new javax.swing.JLabel();
         lblCommunityId = new javax.swing.JLabel();
-        txtCommunityId = new javax.swing.JTextField();
         lblCityId = new javax.swing.JLabel();
-        txtCityId = new javax.swing.JTextField();
         lblHouseId = new javax.swing.JLabel();
         txtHouseId = new javax.swing.JTextField();
         lblUserName = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
-        lblName = new javax.swing.JLabel();
+        comboBoxCity = new javax.swing.JComboBox<>();
+        comboBoxCommunity = new javax.swing.JComboBox<>();
+        lblPersonName = new javax.swing.JLabel();
         txtPersonName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         DashboardLeftPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
-        tblView1.setModel(new javax.swing.table.DefaultTableModel(
+        tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -66,16 +85,21 @@ public class PatientDashboard extends javax.swing.JFrame {
                 "ID", "Patient Name", "Age"
             }
         ));
-        tableView1.setViewportView(tblView1);
+        tableView.setViewportView(tblView);
 
-        btnUpdate1.setText("Update");
-        btnUpdate1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdate1ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        btnBack1.setText("Back");
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DashboardLeftPanel1Layout = new javax.swing.GroupLayout(DashboardLeftPanel1);
         DashboardLeftPanel1.setLayout(DashboardLeftPanel1Layout);
@@ -85,13 +109,13 @@ public class PatientDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DashboardLeftPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchField1)
-                    .addComponent(tableView1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(DashboardLeftPanel1Layout.createSequentialGroup()
                 .addGap(114, 114, 114)
-                .addComponent(btnUpdate1)
+                .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBack1)
+                .addComponent(btnBack)
                 .addContainerGap(176, Short.MAX_VALUE))
         );
         DashboardLeftPanel1Layout.setVerticalGroup(
@@ -99,12 +123,12 @@ public class PatientDashboard extends javax.swing.JFrame {
             .addGroup(DashboardLeftPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tableView1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate1)
-                    .addComponent(btnBack1))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnBack))
                 .addContainerGap())
         );
 
@@ -122,20 +146,8 @@ public class PatientDashboard extends javax.swing.JFrame {
         lblCommunityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityId.setText("Community ID");
 
-        txtCommunityId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCommunityIdActionPerformed(evt);
-            }
-        });
-
         lblCityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCityId.setText("City ID");
-
-        txtCityId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCityIdActionPerformed(evt);
-            }
-        });
 
         lblHouseId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblHouseId.setText("House Id");
@@ -158,24 +170,40 @@ public class PatientDashboard extends javax.swing.JFrame {
         lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPassword.setText("Password");
 
-        lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblName.setText("Doctor Name");
+        comboBoxCity.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboBoxCityItemStateChanged(evt);
+            }
+        });
+
+        comboBoxCommunity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxCommunityActionPerformed(evt);
+            }
+        });
+
+        lblPersonName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblPersonName.setText("Patient Name");
+
+        txtPersonName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPersonNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DashboardRightPanel1Layout = new javax.swing.GroupLayout(DashboardRightPanel1);
         DashboardRightPanel1.setLayout(DashboardRightPanel1Layout);
         DashboardRightPanel1Layout.setHorizontalGroup(
             DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanel1Layout.createSequentialGroup()
+            .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
                 .addContainerGap(81, Short.MAX_VALUE)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
                         .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -183,41 +211,47 @@ public class PatientDashboard extends javax.swing.JFrame {
                             .addComponent(lblHouseId)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtHouseId, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                                .addComponent(lblCityId)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCityId, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanel1Layout.createSequentialGroup()
+                            .addComponent(lblCityId)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanel1Layout.createSequentialGroup()
+                            .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblPersonName)
                                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblAge)
-                                    .addComponent(lblCommunityId))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCommunityId, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(lblCommunityId)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                                .addComponent(comboBoxCommunity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPersonName)))))
                 .addGap(54, 54, 54))
         );
 
-        DashboardRightPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblCityId, lblCommunityId, lblHouseId, lblName, lblPassword, lblUserName});
+        DashboardRightPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAge, lblCityId, lblCommunityId, lblHouseId, lblPassword, lblUserName});
 
-        DashboardRightPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPassword, txtPersonName, txtUserName});
+        DashboardRightPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPassword, txtUserName});
 
         DashboardRightPanel1Layout.setVerticalGroup(
             DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(42, 42, 42)
+                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPersonName)
+                    .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAge)
                     .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCommunityId)
-                    .addComponent(txtCommunityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCityId)
-                    .addComponent(txtCityId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHouseId)
@@ -233,11 +267,7 @@ public class PatientDashboard extends javax.swing.JFrame {
                     .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -258,36 +288,29 @@ public class PatientDashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(DashboardRightPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DashboardLeftPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         Patient p = new Patient();
         p.setAge(Integer.parseInt(txtAge.getText()));
-        p.setCommunityId(txtCommunityId.getText());
-        p.setCityId(txtCityId.getText());
+        p.setCommunityId(comboBoxCommunity.getSelectedItem().toString().split(":", 2)[1]);
+        p.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
         p.setHouseId(txtHouseId.getText());
         p.setName(txtPersonName.getText());
         p.setUserName(txtUserName.getText());
         p.setPassword(txtPassword.getText());
         p.setRole("Patient");
         Main.patDirectory.addPatient(p);
-    }//GEN-LAST:event_btnUpdate1ActionPerformed
+        populateTable();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgeActionPerformed
-
-    private void txtCommunityIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCommunityIdActionPerformed
-
-    private void txtCityIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCityIdActionPerformed
 
     private void txtHouseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHouseIdActionPerformed
         // TODO add your handling code here:
@@ -296,6 +319,23 @@ public class PatientDashboard extends javax.swing.JFrame {
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        new AdminDashboard().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void comboBoxCityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxCityItemStateChanged
+        populateCommunityComboBox();
+    }//GEN-LAST:event_comboBoxCityItemStateChanged
+
+    private void comboBoxCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCommunityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxCommunityActionPerformed
+
+    private void txtPersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPersonNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPersonNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,24 +375,38 @@ public class PatientDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DashboardLeftPanel1;
     private javax.swing.JPanel DashboardRightPanel1;
-    private javax.swing.JButton btnBack1;
-    private javax.swing.JButton btnUpdate1;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> comboBoxCity;
+    private javax.swing.JComboBox<String> comboBoxCommunity;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblCityId;
     private javax.swing.JLabel lblCommunityId;
     private javax.swing.JLabel lblHouseId;
-    private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPersonName;
     private javax.swing.JLabel lblUserName;
-    private javax.swing.JScrollPane tableView1;
-    private javax.swing.JTable tblView1;
+    private javax.swing.JScrollPane tableView;
+    private javax.swing.JTable tblView;
     private javax.swing.JTextField txtAge;
-    private javax.swing.JTextField txtCityId;
-    private javax.swing.JTextField txtCommunityId;
     private javax.swing.JTextField txtHouseId;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPersonName;
     private javax.swing.JTextField txtSearchField1;
     private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        model.setRowCount(0);
+        HashMap<String, Patient> patientDir = Main.patDirectory.getDirectory();
+        for (String id: patientDir.keySet()){
+            Object[] row= new Object[3];
+            Patient p = patientDir.get(id);
+            row[0] = p.getPatientId();
+            row[1] = p.getName();
+            row[2] = p.getAge();
+            model.addRow(row);
+        }
+    }
 }

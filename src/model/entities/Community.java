@@ -15,6 +15,7 @@ public class Community {
     private String admin;
     private int zipcode;
     private String cityName;
+    private String cityId;
 
     public String getId() {
         return id;
@@ -56,9 +57,17 @@ public class Community {
         this.cityName = cityName;
     }
 
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
     @Override
     public String toString() {
-        return "Community{" + "id=" + id + ", name=" + name + ", admin=" + admin + ", zipcode=" + zipcode + ", cityName=" + cityName + '}';
+        return "Community{" + "id=" + id + ", name=" + name + ", admin=" + admin + ", zipcode=" + zipcode + ", cityName=" + cityName + ", cityId=" + cityId + '}';
     }
     
 }

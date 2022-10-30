@@ -33,6 +33,15 @@ public class HospitalDirectory {
         System.out.println("City Dircetory"+this.directory);
     }
 
+    public HashMap<String, Hospital> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(HashMap<String, Hospital> directory) {
+        this.directory = directory;
+    }
+
+    
     @Override
     public String toString() {
         return "HospitalDirectory{" + "directory=" + directory + '}';

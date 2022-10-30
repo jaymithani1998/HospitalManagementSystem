@@ -4,6 +4,7 @@
  */
 package model.directories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import model.entities.City;
@@ -37,6 +38,16 @@ public class CityDirectory {
         return directory;
     }
 
+    public String[] getCitiesForComboBox(){
+        ArrayList<String> returnResult = new ArrayList<>();
+        for(String id: this.directory.keySet()){
+            City city = this.directory.get(id);
+            returnResult.add(city.getCityName() + ":" + city.getId());
+        }
+        
+        return returnResult.toArray(new String[0]);
+    }
+    
     public void setDirectory(HashMap<String, City> directory) {
         this.directory = directory;
     }
