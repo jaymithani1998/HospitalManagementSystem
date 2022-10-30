@@ -4,10 +4,25 @@
  */
 package model.directories;
 
+import java.util.HashMap;
+import model.entities.VitalSigns;
+
 /**
  *
  * @author jaymithani
  */
 public class VitalSignsDirectory {
+    
+    private HashMap<String, VitalSigns> directory;
+    
+    public VitalSignsDirectory(){
+        this.directory = new HashMap<String, VitalSigns>();
+    }
+
+    @Override
+    public String toString() {
+        return "VitalSignsDirectory{" + "directory=" + directory + '}';
+    }
+    
     
 }

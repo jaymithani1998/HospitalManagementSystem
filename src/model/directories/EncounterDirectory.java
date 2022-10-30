@@ -4,10 +4,23 @@
  */
 package model.directories;
 
+import java.util.HashMap;
+import model.entities.Encounter;
+
 /**
  *
  * @author jaymithani
  */
 public class EncounterDirectory {
+    private HashMap<String, Encounter> directory;
+    
+    public EncounterDirectory(){
+        this.directory = new HashMap<String, Encounter>();
+    }
+
+    @Override
+    public String toString() {
+        return "EncounterDirectory{" + "directory=" + directory + '}';
+    }
     
 }

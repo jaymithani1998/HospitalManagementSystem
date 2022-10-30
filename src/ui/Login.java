@@ -5,6 +5,7 @@
 package ui;
 
 import javax.swing.JOptionPane;
+import main.Main;
 
 /**
  *
@@ -146,12 +147,14 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String uID = txtLoginId.getText();
         String password = txtLoginId.getText();
-        if(uID.equals("ID1")){
-            JOptionPane.showMessageDialog(null, "Name : Logged In as User", "Error", JOptionPane.ERROR_MESSAGE);
-            this.setVisible(false);
+        boolean check= Main.pDirectory.validateCredentials(uID, password);
+        if(check){
             new DoctorDashboard().setVisible(true);
+            this.dispose();
         }
-        
+        else{
+            JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**

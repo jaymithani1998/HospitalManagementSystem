@@ -15,6 +15,51 @@ public class Doctor extends Person{
     private int experience;
     private String gender;
     private int hospitalId;
-    //id, specilization, experience, gender, hospital id
+
+    @Override
+    public String toString() {
+        return "Doctor{" + "id=" + id + ", specialization=" + specialization + ", experience=" + experience + ", gender=" + gender + ", hospitalId=" + hospitalId + '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(int hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+    
     
 }

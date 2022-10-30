@@ -55,5 +55,10 @@ public class Community {
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
+
+    @Override
+    public String toString() {
+        return "Community{" + "id=" + id + ", name=" + name + ", admin=" + admin + ", zipcode=" + zipcode + ", cityName=" + cityName + '}';
+    }
     
 }
