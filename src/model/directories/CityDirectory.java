@@ -21,19 +21,24 @@ public class CityDirectory {
         this.directory = new HashMap<String, City>();
     }
 
-    public void addCity(City c){
+    public boolean addCity(City c){
         for(String id: this.directory.keySet()){
             City city = this.directory.get(id);
             if(city.getCityName().equals(c.getCityName())){
                 JOptionPane.showMessageDialog(null, "City Name already exists: " + city.getCityName());
-                return;
+                return false;
             }
         }
         c.setId(Utility.getInstance().getNextCityId());
         this.directory.put(c.getId(), c);
         System.out.println("City Dircetory"+this.directory);
+        return true;
     }
-
+    
+    public void updateCity(City city){
+        directory.replace(city.getId(), city);
+    }
+    
     public HashMap<String, City> getDirectory() {
         return directory;
     }

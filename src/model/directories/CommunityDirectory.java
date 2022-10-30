@@ -22,17 +22,22 @@ public class CommunityDirectory {
         this.directory = new HashMap<String,Community>();
     }
     
-    public void addCommunity(Community c){
+    public boolean addCommunity(Community c){
         for(String id: this.directory.keySet()){
             Community com = this.directory.get(id);
             if(com.getCityName().equals(c.getCityName()) && com.getName().equals(c.getName())){
                 JOptionPane.showMessageDialog(null, "Community Already Exist" + com.getId());
-                return;
+                return false;
             }
         }
         c.setId(Utility.getInstance().getNextCommunityId());
         this.directory.put(c.getId(), c);
         System.out.println("Community Directory:"+this.directory);
+        return true;
+    }
+    
+    public void updateCommunity(Community community){
+        directory.replace(community.getId(), community);
     }
     
     public String[] getCommunitiesForComboBox(String cityId){

@@ -15,6 +15,7 @@ public class Patient extends Person{
     private String cityId;
     private String houseId;
     private String patientId;
+    private String gender;
 
     public int getAge() {
         return age;
@@ -56,6 +57,15 @@ public class Patient extends Person{
         this.patientId = patientId;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    
     @Override
     public String toString() {
         return "Patient{" + "age=" + age + ", communityId=" + communityId + ", cityId=" + cityId + ", houseId=" + houseId + ", patientId=" + patientId + '}';

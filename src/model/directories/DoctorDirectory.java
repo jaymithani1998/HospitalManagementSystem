@@ -7,6 +7,7 @@ package model.directories;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import main.Main;
+import model.entities.City;
 import model.entities.Doctor;
 import model.entities.Person;
 import util.Utility;
@@ -22,24 +23,33 @@ public class DoctorDirectory {
         this.directory = new HashMap<String,Doctor>();
     }
 
-    public void addDoctor(Doctor d){
+    public boolean addDoctor(Doctor d){
         for(String id: this.directory.keySet()){
             Doctor doc = this.directory.get(id);
             if(doc.getName().equals(d.getName()) && doc.getRole().equals("Doctor")){
                 JOptionPane.showMessageDialog(null, "Doctor Already Exists" + doc.getId());
-                return;
+                return false;
             }
         }
         d.setId(Utility.getInstance().getNextDoctorId());
-        this.directory.put(d.getId(), d);
-        Main.pDirectory.addPerson(d);
+        boolean bool = Main.pDirectory.addPerson(d);
+        if(bool){
+            this.directory.put(d.getId(), d);
+            return true;
+        }
 //        Person p = new Person();
 //        p.setName(d.getName());
 //        p.setUserName(d.getUserName());
 //        p.setPassword(txtPassword.getText());
 //        p.setRole("Doctor");
+        return false;
     }
-
+    
+    public void updateDoctor(Doctor doctor){
+        directory.replace(doctor.getId(), doctor);
+        Main.pDirectory.updatePerson(doctor);
+    }
+    
     public HashMap<String, Doctor> getDirectory() {
         return directory;
     }

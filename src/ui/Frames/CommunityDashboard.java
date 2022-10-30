@@ -6,6 +6,7 @@ package ui.Frames;
 
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
 import model.entities.Community;
@@ -62,6 +63,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
         txtCommunityZipcode = new javax.swing.JTextField();
         comboBoxCity = new javax.swing.JComboBox<>();
         comboBoxAdmin = new javax.swing.JComboBox<>();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,6 +80,11 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 "ID", "Community", "City"
             }
         ));
+        tblView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewMouseClicked(evt);
+            }
+        });
         tableView.setViewportView(tblView);
 
         btnUpdate.setText("Update");
@@ -105,11 +112,11 @@ public class CommunityDashboard extends javax.swing.JFrame {
                     .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(84, 84, 84))
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(70, 70, 70)
                 .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(96, 96, 96)
                 .addComponent(btnBack1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +129,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnBack1))
-                .addContainerGap())
+                .addGap(29, 29, 29))
         );
 
         DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
@@ -181,6 +188,10 @@ public class CommunityDashboard extends javax.swing.JFrame {
                             .addComponent(txtCommunityName, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                             .addComponent(comboBoxAdmin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(54, 54, 54))
+            .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblCommunityAdmin, lblCommunityCity, lblCommunityName, lblCommunityZipcode});
@@ -188,7 +199,9 @@ public class CommunityDashboard extends javax.swing.JFrame {
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(15, 15, 15)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCommunityName)
                     .addComponent(txtCommunityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,7 +217,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCommunityZipcode)
                     .addComponent(txtCommunityZipcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(369, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,14 +245,22 @@ public class CommunityDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-       Community c = new Community();
-//       c.setAdmin(txtCommunityAdmin.getText());
-       c.setName(txtCommunityName.getText());
-       c.setCityName(comboBoxCity.getSelectedItem().toString().split(":", 2)[0]);
-       c.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
-       c.setZipcode(Integer.parseInt(txtCommunityZipcode.getText()));
-       Main.comDircetDirectory.addCommunity(c);
-       populateTable();
+        Community c = new Community();
+    //       c.setAdmin(txtCommunityAdmin.getText());
+        c.setName(txtCommunityName.getText());
+        c.setCityName(comboBoxCity.getSelectedItem().toString().split(":", 2)[0]);
+        c.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
+        c.setZipcode(Integer.parseInt(txtCommunityZipcode.getText()));
+        c.setAdmin(comboBoxAdmin.getSelectedItem().toString().split(":",2)[1]);
+        
+        if (lblId.getText().isEmpty()) {
+            Main.comDircetDirectory.addCommunity(c);
+        }else{
+            c.setId(lblId.getText());
+            Main.comDircetDirectory.updateCommunity(c);
+        }
+        
+        populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtCommunityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityNameActionPerformed
@@ -258,6 +279,29 @@ public class CommunityDashboard extends javax.swing.JFrame {
         new AdminDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBack1ActionPerformed
+
+    private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
+        int SelectRowIndex = tblView.getSelectedRow();
+
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+
+        HashMap<String, Community> h = Main.comDircetDirectory.getDirectory();
+
+        txtCommunityName.setText(h.get(id).getName());
+        txtCommunityZipcode.setText(String.valueOf(h.get(id).getZipcode()));
+        String adminId = h.get(id).getAdmin();
+        System.out.println("admin id" + adminId);
+        String adminName = Main.pDirectory.getDirectory().get(adminId).getName();
+        comboBoxAdmin.setSelectedItem(adminName + ":" + adminId);
+        comboBoxCity.setSelectedItem(h.get(id).getCityName());
+        lblId.setText(id);
+    }//GEN-LAST:event_tblViewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -305,6 +349,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lblCommunityCity;
     private javax.swing.JLabel lblCommunityName;
     private javax.swing.JLabel lblCommunityZipcode;
+    private javax.swing.JLabel lblId;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
     private javax.swing.JTextField txtCommunityName;

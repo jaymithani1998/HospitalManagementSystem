@@ -132,6 +132,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblViewMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -161,16 +164,21 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblAptNumber" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblCommunityId" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblCityId" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtAptNumber" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="comboBoxCity" alignment="1" max="32767" attributes="0"/>
-                          <Component id="comboBoxCommunity" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblId" min="-2" pref="62" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblAptNumber" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCommunityId" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCityId" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtAptNumber" alignment="0" min="-2" pref="174" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="comboBoxCity" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="comboBoxCommunity" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="65" max="32767" attributes="0"/>
@@ -180,7 +188,9 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="lblId" min="-2" pref="16" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblAptNumber" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="txtAptNumber" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -213,7 +223,7 @@
         <Component class="javax.swing.JLabel" name="lblAptNumber">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Hospital Name"/>
+            <Property name="text" type="java.lang.String" value="Apt Number"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCityId">
@@ -252,6 +262,8 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblId">
         </Component>
       </SubComponents>
     </Container>

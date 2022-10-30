@@ -6,6 +6,7 @@ package model.directories;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import model.entities.City;
 import model.entities.Person;
 import util.Utility;
 
@@ -28,19 +29,26 @@ public class PersonDirectory {
         addPerson(person);
     }
     
-    public void addPerson(Person p){
+    public boolean addPerson(Person p){
         for(String id: this.directory.keySet()){
             Person per = this.directory.get(id);
             if(per.getUserName().equals(p.getUserName())){
                 JOptionPane.showMessageDialog(null, "Username already exists" + per.getUserName());
-                return;
+                return false;
             }
         }
-        p.setId(Utility.getInstance().getNextPersonId());
+        if (p.getId() == null){
+            p.setId(Utility.getInstance().getNextPersonId());
+        }
         this.directory.put(p.getId(), p);
         System.out.println("City Dircetory"+this.directory);
+        return true;
     }
-
+    
+    public void updatePerson(Person person){
+        directory.replace(person.getId(), person);
+    }
+    
     public String[] getAdminsForCommunitiesAdminComboBox(){
         ArrayList<String> returnResult = new ArrayList<>();
         for(String id: this.directory.keySet()){

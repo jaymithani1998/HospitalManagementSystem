@@ -6,6 +6,7 @@ package ui.Frames;
 
 import java.awt.TextField;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
 import model.directories.CityDirectory;
@@ -41,11 +42,12 @@ public class CityDashboard extends javax.swing.JFrame {
         txtSearchField = new javax.swing.JTextField();
         tableView = new javax.swing.JScrollPane();
         tblView = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         txtCityName = new javax.swing.JTextField();
         lblCity = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,12 +64,17 @@ public class CityDashboard extends javax.swing.JFrame {
                 "ID", "City Name"
             }
         ));
+        tblView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewMouseClicked(evt);
+            }
+        });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -85,15 +92,17 @@ public class CityDashboard extends javax.swing.JFrame {
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearchField)
-                    .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBack)
-                .addContainerGap(176, Short.MAX_VALUE))
+                    .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
+                        .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSearchField)
+                            .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(btnAdd)
+                        .addGap(108, 108, 108)
+                        .addComponent(btnBack)
+                        .addContainerGap(108, Short.MAX_VALUE))))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +113,7 @@ public class CityDashboard extends javax.swing.JFrame {
                 .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
+                    .addComponent(btnAdd)
                     .addComponent(btnBack))
                 .addContainerGap())
         );
@@ -125,20 +134,25 @@ public class CityDashboard extends javax.swing.JFrame {
         DashboardRightPanelLayout.setHorizontalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(lblCity)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(26, 26, 26)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addComponent(lblCity)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(22, 22, 22)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCity)
                     .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,12 +179,17 @@ public class CityDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         City c = new City();
         c.setCityName(txtCityName.getText());
-        Main.cityDirectory.addCity(c);
+        if (lblId.getText().isEmpty()) {
+            Main.cityDirectory.addCity(c);
+        }else{
+            c.setId(lblId.getText());
+            Main.cityDirectory.updateCity(c);
+        }
         populateTable();
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
         // TODO add your handling code here:
@@ -180,6 +199,24 @@ public class CityDashboard extends javax.swing.JFrame {
         new AdminDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+        
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+    
+        HashMap<String, City> h = Main.cityDirectory.getDirectory();
+ 
+        lblId.setText(h.get(id).getId());
+        txtCityName.setText(h.get(id).getCityName());
+    }//GEN-LAST:event_tblViewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -219,9 +256,10 @@ public class CityDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DashboardLeftPanel;
     private javax.swing.JPanel DashboardRightPanel;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblId;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
     private javax.swing.JTextField txtCityName;

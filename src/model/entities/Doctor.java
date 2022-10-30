@@ -50,6 +50,15 @@ public class Doctor extends Person{
         this.gender = gender;
     }
 
+    public String getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(String hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+
+    
     @Override
     public String toString() {
         return "Doctor{" + "id=" + id + ", specialization=" + specialization + ", experience=" + experience + ", gender=" + gender + ", hospitalId=" + hospitalId + '}';

@@ -6,9 +6,11 @@ package ui.Frames;
 
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
 import model.entities.Hospital;
+import model.entities.Person;
 import ui.AdminDashboard;
 
 /**
@@ -49,6 +51,7 @@ public class HospitalDashboard extends javax.swing.JFrame {
         txtHospitalName = new javax.swing.JTextField();
         comboBoxCommunity = new javax.swing.JComboBox<>();
         comboBoxCity = new javax.swing.JComboBox<>();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +68,11 @@ public class HospitalDashboard extends javax.swing.JFrame {
                 "ID", "Hospital Name", "City ID"
             }
         ));
+        tblView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewMouseClicked(evt);
+            }
+        });
         tableView.setViewportView(tblView);
 
         btnUpdate.setText("Update");
@@ -144,17 +152,22 @@ public class HospitalDashboard extends javax.swing.JFrame {
         DashboardRightPanelLayout.setHorizontalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHospitalName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCommunityId, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCityId, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(26, 26, 26)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(comboBoxCity, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBoxCommunity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblHospitalName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCommunityId, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCityId, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(26, 26, 26)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comboBoxCity, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboBoxCommunity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
@@ -163,7 +176,9 @@ public class HospitalDashboard extends javax.swing.JFrame {
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(39, 39, 39)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblHospitalName)
                     .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -209,7 +224,13 @@ public class HospitalDashboard extends javax.swing.JFrame {
         h.setName(txtHospitalName.getText());
         h.setCommunityId(comboBoxCommunity.getSelectedItem().toString().split(":", 2)[1]);
         h.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
-        Main.hosDirectory.addHospital(h);
+        if (lblId.getText().isEmpty()) {
+            Main.hosDirectory.addHospital(h);
+        }else{
+            h.setId(lblId.getText());
+            Main.hosDirectory.updateHospital(h);
+        }
+        
         populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -242,6 +263,32 @@ public class HospitalDashboard extends javax.swing.JFrame {
     private void comboBoxCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCommunityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxCommunityActionPerformed
+
+    private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+        
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+    
+        HashMap<String, Hospital> directory = Main.hosDirectory.getDirectory();
+        
+        Hospital hospital = directory.get(id);
+        txtHospitalName.setText(hospital.getName());
+        
+        String cityName = Main.cityDirectory.getDirectory().get(hospital.getCityId()).getCityName();
+        comboBoxCity.setSelectedItem(cityName + ":" + hospital.getCityId());
+        
+        String communityName = Main.comDircetDirectory.getDirectory().get(hospital.getCommunityId()).getName();
+        comboBoxCommunity.setSelectedItem(communityName + ":" + hospital.getCommunityId());
+        
+        lblId.setText(id);
+    }//GEN-LAST:event_tblViewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -288,6 +335,7 @@ public class HospitalDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lblCityId;
     private javax.swing.JLabel lblCommunityId;
     private javax.swing.JLabel lblHospitalName;
+    private javax.swing.JLabel lblId;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
     private javax.swing.JTextField txtHospitalName;

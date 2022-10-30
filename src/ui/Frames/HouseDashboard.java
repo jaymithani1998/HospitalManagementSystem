@@ -6,8 +6,10 @@ package ui.Frames;
 
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
+import model.entities.Hospital;
 import model.entities.House;
 import model.entities.Patient;
 import ui.AdminDashboard;
@@ -50,6 +52,7 @@ public class HouseDashboard extends javax.swing.JFrame {
         txtAptNumber = new javax.swing.JTextField();
         comboBoxCommunity = new javax.swing.JComboBox<>();
         comboBoxCity = new javax.swing.JComboBox<>();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +69,11 @@ public class HouseDashboard extends javax.swing.JFrame {
                 "ID", "Apartment Number", "City ID"
             }
         ));
+        tblView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewMouseClicked(evt);
+            }
+        });
         tableView.setViewportView(tblView);
 
         btnUpdate.setText("Update");
@@ -117,7 +125,7 @@ public class HouseDashboard extends javax.swing.JFrame {
         lblCommunityId.setText("Community ID");
 
         lblAptNumber.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblAptNumber.setText("Hospital Name");
+        lblAptNumber.setText("Apt Number");
 
         lblCityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCityId.setText("City ID");
@@ -147,21 +155,26 @@ public class HouseDashboard extends javax.swing.JFrame {
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAptNumber, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCommunityId, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCityId, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(26, 26, 26)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtAptNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(comboBoxCity, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboBoxCommunity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAptNumber, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCommunityId, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCityId, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(26, 26, 26)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAptNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comboBoxCity, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboBoxCommunity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(39, 39, 39)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAptNumber)
                     .addComponent(txtAptNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -207,7 +220,14 @@ public class HouseDashboard extends javax.swing.JFrame {
         h.setAptNumber(Integer.parseInt(txtAptNumber.getText()));
         h.setCommunityId(comboBoxCommunity.getSelectedItem().toString().split(":", 2)[1]);
         h.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
-        Main.houseDirectory.addHouse(h);
+        
+        if (lblId.getText().isEmpty()) {
+            Main.houseDirectory.addHouse(h);
+        }else{
+            h.setId(lblId.getText());
+            Main.houseDirectory.updateHouse(h);
+        }
+        
         populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -227,6 +247,32 @@ public class HouseDashboard extends javax.swing.JFrame {
     private void comboBoxCityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboBoxCityItemStateChanged
         populateCommunityComboBox();
     }//GEN-LAST:event_comboBoxCityItemStateChanged
+
+    private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+        
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+    
+        HashMap<String, House> directory = Main.houseDirectory.getDirectory();
+        
+        House house = directory.get(id);
+        txtAptNumber.setText(String.valueOf(house.getAptNumber()));
+        
+        String cityName = Main.cityDirectory.getDirectory().get(house.getCityId()).getCityName();
+        comboBoxCity.setSelectedItem(cityName + ":" + house.getCityId());
+        
+        String communityName = Main.comDircetDirectory.getDirectory().get(house.getCommunityId()).getName();
+        comboBoxCommunity.setSelectedItem(communityName + ":" + house.getCommunityId());
+        
+        lblId.setText(id);
+    }//GEN-LAST:event_tblViewMouseClicked
 
     public void populateComboBoxCity(){
         String[] cityNames = Main.cityDirectory.getCitiesForComboBox();
@@ -285,6 +331,7 @@ public class HouseDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lblAptNumber;
     private javax.swing.JLabel lblCityId;
     private javax.swing.JLabel lblCommunityId;
+    private javax.swing.JLabel lblId;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
     private javax.swing.JTextField txtAptNumber;
@@ -295,11 +342,12 @@ public class HouseDashboard extends javax.swing.JFrame {
         model.setRowCount(0);
         HashMap<String, House> houseDir = Main.houseDirectory.getDirectory();
         for (String id: houseDir.keySet()){
-            Object[] row= new Object[3];
+            Object[] row= new Object[4];
             House h = houseDir.get(id);
-            row[0] = h.getAptNumber();
-            row[1] = h.getCommunityId();
-            row[2] = h.getCityId();
+            row[0] = h.getId();
+            row[1] = h.getAptNumber();
+            row[2] = h.getCommunityId();
+            row[3] = h.getCityId();
             model.addRow(row);
         }
     }

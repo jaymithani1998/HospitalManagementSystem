@@ -5,8 +5,11 @@
 package ui.Frames;
 
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
+import model.entities.City;
+import model.entities.Community;
 import model.entities.Person;
 import ui.AdminDashboard;
 
@@ -37,7 +40,7 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         txtSearchField = new javax.swing.JTextField();
         tableView = new javax.swing.JScrollPane();
         tblView = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnBack1 = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         lblPassword = new javax.swing.JLabel();
@@ -48,6 +51,7 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         txtUserName = new javax.swing.JTextField();
         txtPersonName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,12 +68,17 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
                 "ID", "Username"
             }
         ));
+        tblView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewMouseClicked(evt);
+            }
+        });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Update");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -92,10 +101,10 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
                 .addGap(114, 114, 114)
-                .addComponent(btnUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAdd)
+                .addGap(96, 96, 96)
                 .addComponent(btnBack1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,7 +115,7 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
                 .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
+                    .addComponent(btnAdd)
                     .addComponent(btnBack1))
                 .addContainerGap())
         );
@@ -138,16 +147,19 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(26, 26, 26)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBoxRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                    .addComponent(lblId)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRole, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(26, 26, 26)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(comboBoxRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))))
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
@@ -156,7 +168,9 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(27, 27, 27)
+                .addComponent(lblId)
+                .addGap(29, 29, 29)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUserName)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -202,15 +216,21 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         Person p = new Person();
         p.setName(txtPersonName.getText());
         p.setUserName(txtUserName.getText());
         p.setPassword(txtPassword.getText());
         p.setRole(comboBoxRole.getSelectedItem().toString());
-        Main.pDirectory.addPerson(p);
+        
+        if (lblId.getText().isEmpty()) {
+            Main.pDirectory.addPerson(p);
+        }else{
+            p.setId(lblId.getText());
+            Main.pDirectory.updatePerson(p);
+        }
         populateTable();
-    }//GEN-LAST:event_btnUpdateActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
@@ -220,6 +240,27 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         new AdminDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnBack1ActionPerformed
+
+    private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+        
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+    
+        HashMap<String, Person> directory = Main.pDirectory.getDirectory();
+        
+        Person p = directory.get(id);
+        lblId.setText(id);
+        txtUserName.setText(p.getUserName());
+        txtPersonName.setText(p.getName());
+        comboBoxRole.setSelectedItem(p.getRole());
+    }//GEN-LAST:event_tblViewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -262,9 +303,10 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DashboardLeftPanel;
     private javax.swing.JPanel DashboardRightPanel;
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack1;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboBoxRole;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRole;

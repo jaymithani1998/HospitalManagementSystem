@@ -4,8 +4,10 @@
  */
 package model.directories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import model.entities.City;
 import model.entities.Hospital;
 import util.Utility;
 
@@ -20,19 +22,34 @@ public class HospitalDirectory {
         this.directory = new HashMap<String, Hospital>();
     }
     
-    public void addHospital(Hospital h){
+    public boolean addHospital(Hospital h){
         for(String id: this.directory.keySet()){
             Hospital hos = this.directory.get(id);
             if(hos.getName().equals(h.getName()) && hos.getCityId().equals(h.getCityId()) && hos.getCommunityId().equals(h.getCommunityId())){
                 JOptionPane.showMessageDialog(null, "Hospital Already Exists" + hos.getId());
-                return;
+                return false;
             }
         }
         h.setId(Utility.getInstance().getNextHospitalId());
         this.directory.put(h.getId(), h);
         System.out.println("City Dircetory"+this.directory);
+        return true;
     }
-
+    
+    public void updateHospital(Hospital hospital){
+        directory.replace(hospital.getId(), hospital);
+    }
+    
+    public String[] getHospitalsForComboBox(){
+        ArrayList<String> returnResult = new ArrayList<>();
+        for(String id: this.directory.keySet()){
+            Hospital h = this.directory.get(id);
+            returnResult.add(h.getName()+ ":" + h.getId());
+        }
+        
+        return returnResult.toArray(new String[0]);
+    }
+    
     public HashMap<String, Hospital> getDirectory() {
         return directory;
     }

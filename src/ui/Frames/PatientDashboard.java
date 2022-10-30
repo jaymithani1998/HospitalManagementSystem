@@ -6,8 +6,10 @@ package ui.Frames;
 
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import main.Main;
+import model.entities.Doctor;
 import model.entities.Patient;
 import ui.AdminDashboard;
 
@@ -24,6 +26,7 @@ public class PatientDashboard extends javax.swing.JFrame {
         initComponents();
         populateComboBoxCity();
         populateCommunityComboBox();
+        populateHouseComboBox();
         populateTable();
     }
     
@@ -38,6 +41,13 @@ public class PatientDashboard extends javax.swing.JFrame {
         String[] communityNames = Main.comDircetDirectory.getCommunitiesForComboBox(cityId);
         DefaultComboBoxModel model = new DefaultComboBoxModel(communityNames);
         comboBoxCommunity.setModel(model);
+    }
+    
+    public void populateHouseComboBox(){
+        String communityId = comboBoxCommunity.getSelectedItem().toString().split(":", 2)[1];
+        String[] houseNames = Main.houseDirectory.getHousesForComboBox(communityId);
+        DefaultComboBoxModel model = new DefaultComboBoxModel(houseNames);
+        comboBoxHouse.setModel(model);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,7 +70,6 @@ public class PatientDashboard extends javax.swing.JFrame {
         lblCommunityId = new javax.swing.JLabel();
         lblCityId = new javax.swing.JLabel();
         lblHouseId = new javax.swing.JLabel();
-        txtHouseId = new javax.swing.JTextField();
         lblUserName = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
@@ -69,6 +78,10 @@ public class PatientDashboard extends javax.swing.JFrame {
         comboBoxCommunity = new javax.swing.JComboBox<>();
         lblPersonName = new javax.swing.JLabel();
         txtPersonName = new javax.swing.JTextField();
+        lblId = new javax.swing.JLabel();
+        lblGender = new javax.swing.JLabel();
+        comboBoxGender = new javax.swing.JComboBox<>();
+        comboBoxHouse = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +98,11 @@ public class PatientDashboard extends javax.swing.JFrame {
                 "ID", "Patient Name", "Age"
             }
         ));
+        tblView.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblViewMouseClicked(evt);
+            }
+        });
         tableView.setViewportView(tblView);
 
         btnUpdate.setText("Update");
@@ -124,7 +142,7 @@ public class PatientDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(txtSearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
-                .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
@@ -152,12 +170,6 @@ public class PatientDashboard extends javax.swing.JFrame {
         lblHouseId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblHouseId.setText("House Id");
 
-        txtHouseId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHouseIdActionPerformed(evt);
-            }
-        });
-
         lblUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUserName.setText("Username");
 
@@ -169,6 +181,12 @@ public class PatientDashboard extends javax.swing.JFrame {
 
         lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPassword.setText("Password");
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         comboBoxCity.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -191,26 +209,31 @@ public class PatientDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblGender.setText("Gender");
+
+        comboBoxGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
+
         javax.swing.GroupLayout DashboardRightPanel1Layout = new javax.swing.GroupLayout(DashboardRightPanel1);
         DashboardRightPanel1.setLayout(DashboardRightPanel1Layout);
         DashboardRightPanel1Layout.setHorizontalGroup(
             DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanel1Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                        .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblGender)
+                        .addGap(24, 24, 24)
+                        .addComponent(comboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
                             .addComponent(lblHouseId)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtHouseId, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxHouse, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanel1Layout.createSequentialGroup()
                             .addComponent(lblCityId)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,7 +248,15 @@ public class PatientDashboard extends javax.swing.JFrame {
                             .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                                 .addComponent(comboBoxCommunity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtPersonName)))))
+                                .addComponent(txtPersonName))))
+                    .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
+                        .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblUserName, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(54, 54, 54))
         );
 
@@ -236,7 +267,9 @@ public class PatientDashboard extends javax.swing.JFrame {
         DashboardRightPanel1Layout.setVerticalGroup(
             DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(22, 22, 22)
+                .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPersonName)
                     .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,19 +288,20 @@ public class PatientDashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblHouseId)
-                    .addComponent(txtHouseId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxHouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUserName))
-                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(lblPassword))
-                    .addGroup(DashboardRightPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addGap(4, 4, 4)
+                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPassword)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(DashboardRightPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender)
+                    .addComponent(comboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -299,11 +333,18 @@ public class PatientDashboard extends javax.swing.JFrame {
         p.setAge(Integer.parseInt(txtAge.getText()));
         p.setCommunityId(comboBoxCommunity.getSelectedItem().toString().split(":", 2)[1]);
         p.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
-        p.setHouseId(txtHouseId.getText());
+        p.setHouseId(comboBoxHouse.getSelectedItem().toString().split(":", 2)[1]);
         p.setName(txtPersonName.getText());
         p.setUserName(txtUserName.getText());
         p.setPassword(txtPassword.getText());
         p.setRole("Patient");
+        p.setGender(comboBoxGender.getSelectedItem().toString());
+        if (lblId.getText().isEmpty()) {
+            Main.patDirectory.addPatient(p);
+        }else{
+            p.setId(lblId.getText());
+            Main.patDirectory.addPatient(p);
+        }
         Main.patDirectory.addPatient(p);
         populateTable();
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -311,10 +352,6 @@ public class PatientDashboard extends javax.swing.JFrame {
     private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgeActionPerformed
-
-    private void txtHouseIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHouseIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHouseIdActionPerformed
 
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
@@ -336,6 +373,43 @@ public class PatientDashboard extends javax.swing.JFrame {
     private void txtPersonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPersonNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPersonNameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+
+        HashMap<String, Patient> directory = Main.patDirectory.getDirectory();
+        
+        Patient patient = directory.get(id);
+        txtPersonName.setText(patient.getName());
+        txtAge.setText(String.valueOf(patient.getAge()));
+        
+        comboBoxGender.setSelectedItem(patient.getGender());
+        
+        String cityName = Main.cityDirectory.getDirectory().get(patient.getCityId()).getCityName();
+        comboBoxCity.setSelectedItem(cityName + ":" + patient.getCityId());
+        
+        String communityName = Main.comDircetDirectory.getDirectory().get(patient.getCommunityId()).getName();
+        comboBoxCommunity.setSelectedItem(communityName + ":" + patient.getCommunityId());
+        
+        String houseName = String.valueOf(Main.houseDirectory.getDirectory().get(patient.getHouseId()).getAptNumber());
+        comboBoxHouse.setSelectedItem(houseName + ":" + patient.getHouseId());
+        
+        txtUserName.setText(patient.getUserName());
+        lblId.setText(id);
+    }//GEN-LAST:event_tblViewMouseClicked
 
     /**
      * @param args the command line arguments
@@ -379,17 +453,20 @@ public class PatientDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboBoxCity;
     private javax.swing.JComboBox<String> comboBoxCommunity;
+    private javax.swing.JComboBox<String> comboBoxGender;
+    private javax.swing.JComboBox<String> comboBoxHouse;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblCityId;
     private javax.swing.JLabel lblCommunityId;
+    private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblHouseId;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPersonName;
     private javax.swing.JLabel lblUserName;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
     private javax.swing.JTextField txtAge;
-    private javax.swing.JTextField txtHouseId;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPersonName;
     private javax.swing.JTextField txtSearchField1;
