@@ -7,7 +7,7 @@ package model.directories;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import model.entities.City;
-
+import util.Utility;
 /**
  *
  * @author jaymithani
@@ -24,11 +24,21 @@ public class CityDirectory {
         for(String id: this.directory.keySet()){
             City city = this.directory.get(id);
             if(city.getCityName().equals(c.getCityName())){
-                JOptionPane.showMessageDialog(null, "City Name already exists" + city.getCityName());
+                JOptionPane.showMessageDialog(null, "City Name already exists: " + city.getCityName());
                 return;
             }
         }
+        c.setId(Utility.getInstance().getNextCityId());
         this.directory.put(c.getId(), c);
+        System.out.println("City Dircetory"+this.directory);
+    }
+
+    public HashMap<String, City> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(HashMap<String, City> directory) {
+        this.directory = directory;
     }
     
     @Override

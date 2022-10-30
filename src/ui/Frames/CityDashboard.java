@@ -2,32 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package ui.Frames;
 
-import java.awt.Component;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import ui.CreatePanels.CreateCity;
+import java.awt.TextField;
+import javax.swing.table.DefaultTableModel;
+import main.Main;
+import model.directories.CityDirectory;
+import model.entities.City;
 
 /**
  *
  * @author jaymithani
  */
-public class Dashboard extends javax.swing.JFrame {
+public class CityDashboard extends javax.swing.JFrame {
 
     /**
-     * Creates new form Dashboard
+     * Creates new form CityDashboard
      */
-    public Dashboard() {
-        initComponents();
-    }
     
-    public Dashboard(Component createPanel){
+    public CityDashboard() {
         initComponents();
-        JOptionPane.showMessageDialog(null, "Constructor");
-        DashboardRightPanel.add(new CreateCity());
-        DashboardRightPanel.add(createPanel);
-        DashboardRightPanel.add(new JButton("Some Button"));
     }
 
     /**
@@ -46,21 +40,22 @@ public class Dashboard extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        txtCityName = new javax.swing.JTextField();
+        lblCity = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(204, 255, 255));
+        DashboardLeftPanel.setBackground(new java.awt.Color(255, 255, 204));
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {},
-                {},
-                {},
-                {}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-
+                "ID", "City Name"
             }
         ));
         tableView.setViewportView(tblView);
@@ -105,34 +100,36 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(153, 255, 255));
+        DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        txtCityName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCityNameActionPerformed(evt);
+            }
+        });
+
+        lblCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblCity.setText("City");
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);
         DashboardRightPanelLayout.setHorizontalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE)
+                .addComponent(lblCity)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
         );
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashboardRightPanelLayout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(73, 73, 73)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity)
+                    .addComponent(txtCityName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,7 +141,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(DashboardRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,15 +150,21 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(DashboardRightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        City c = new City();
+        c.setCityName(txtCityName.getText());
+        Main.cityDirectory.addCity(c);
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCityNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,20 +183,20 @@ public class Dashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Dashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CityDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Dashboard().setVisible(true);
+                new CityDashboard().setVisible(true);
             }
         });
     }
@@ -203,9 +206,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCity;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
+    private javax.swing.JTextField txtCityName;
     private javax.swing.JTextField txtSearchField;
     // End of variables declaration//GEN-END:variables
+
+    
 }

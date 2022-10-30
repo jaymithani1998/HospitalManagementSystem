@@ -4,8 +4,7 @@
  */
 package ui;
 
-import java.awt.Component;
-import ui.CreatePanels.CreateCity;
+import ui.Frames.CityDashboard;
 
 /**
  *
@@ -122,8 +121,8 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void btnCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCityActionPerformed
         // TODO add your handling code here:
-        Component createPanel = new CreateCity();
-        new Dashboard(createPanel).setVisible(true);
+//        Component createPanel = new CreateCity();
+        new CityDashboard().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCityActionPerformed
 

@@ -6,6 +6,7 @@ package main;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.directories.CityDirectory;
 import model.directories.PersonDirectory;
 import ui.Login;
 
@@ -16,6 +17,7 @@ import ui.Login;
 public class Main {
     
     public static PersonDirectory pDirectory = new PersonDirectory();
+    public static CityDirectory cityDirectory = new CityDirectory();
     
     public static void main(String[] args) {
         new Login().setVisible(true);
