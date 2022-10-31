@@ -4,7 +4,7 @@
  */
 package model.entities;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  *

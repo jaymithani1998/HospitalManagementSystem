@@ -20,6 +20,11 @@ public class HospitalDirectory {
     private HashMap<String, Hospital> directory;
     public HospitalDirectory(){
         this.directory = new HashMap<String, Hospital>();
+        
+        Hospital hospital = new Hospital();
+        hospital.setName("Hospital1");
+        hospital.setCityId("city_1");
+        hospital.setCommunityId("com_1");
     }
     
     public boolean addHospital(Hospital h){

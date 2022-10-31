@@ -71,7 +71,7 @@ public class CityDashboard extends javax.swing.JFrame {
         });
         tableView.setViewportView(tblView);
 
-        btnAdd.setText("Add");
+        btnAdd.setText("Add/Update");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -98,11 +98,11 @@ public class CityDashboard extends javax.swing.JFrame {
                             .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
+                        .addGap(114, 114, 114)
                         .addComponent(btnAdd)
-                        .addGap(108, 108, 108)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBack)
-                        .addContainerGap(108, Short.MAX_VALUE))))
+                        .addContainerGap(164, Short.MAX_VALUE))))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,8 +191,14 @@ public class CityDashboard extends javax.swing.JFrame {
             Main.cityDirectory.updateCity(c);
         }
         populateTable();
+        resetForm();
     }//GEN-LAST:event_btnAddActionPerformed
-
+    
+    private void resetForm(){
+        txtCityName.setText("");
+        lblId.setText("");
+    }
+    
     private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCityNameActionPerformed

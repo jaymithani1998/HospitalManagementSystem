@@ -27,6 +27,18 @@ public class DoctorDashboard extends javax.swing.JFrame {
         initComponents();
         populateTable();
         populateComboBoxCity();
+        
+    }
+    
+    private void resetForm(){
+        txtPersonName.setText("");
+        txtExperience.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+        txtSpecialization.setText("");
+        comboBoxGender.setSelectedIndex(0);
+        comboBoxHospital.setSelectedIndex(0);
+        lblId.setText("");
     }
 
      public void populateComboBoxCity(){
@@ -89,7 +101,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
         });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
+        btnUpdate.setText("Add/Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -319,6 +331,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
         }
 
         populateTable();
+        resetForm();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtSpecializationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSpecializationActionPerformed

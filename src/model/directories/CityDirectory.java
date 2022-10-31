@@ -19,6 +19,9 @@ public class CityDirectory {
     
     public CityDirectory(){
         this.directory = new HashMap<String, City>();
+        City city = new City();
+        city.setCityName("City1");
+        addCity(city);
     }
 
     public boolean addCity(City c){

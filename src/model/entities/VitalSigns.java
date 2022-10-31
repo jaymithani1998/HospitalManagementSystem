@@ -11,8 +11,8 @@ package model.entities;
 public class VitalSigns {
     //bp heartrate
     
-    private int bloodPressure;
-    private int heartRate;
+    private int bloodPressure = 0;
+    private int heartRate = 0;
 
     public int getBloodPressure() {
         return bloodPressure;

@@ -27,8 +27,15 @@ public class HospitalDashboard extends javax.swing.JFrame {
         populateComboBoxCity();
         populateCommunityComboBox();
         populateTable();
+        
     }
 
+    private void resetForm(){
+        txtHospitalName.setText("");
+        comboBoxCommunity.setSelectedIndex(0);
+        comboBoxCity.setSelectedIndex(0);
+        lblId.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,7 +82,7 @@ public class HospitalDashboard extends javax.swing.JFrame {
         });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
+        btnUpdate.setText("Add/Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -239,6 +246,7 @@ public class HospitalDashboard extends javax.swing.JFrame {
         }
         
         populateTable();
+        resetForm();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtHospitalNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHospitalNameActionPerformed

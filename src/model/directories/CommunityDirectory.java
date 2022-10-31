@@ -20,6 +20,13 @@ public class CommunityDirectory {
     
     public CommunityDirectory(){
         this.directory = new HashMap<String,Community>();
+        Community community = new Community();
+        community.setName("Community1");
+        community.setCityName("City1");
+        community.setAdmin("per_2");
+        community.setCityId("city_1");
+        addCommunity(community);
+        
     }
     
     public boolean addCommunity(Community c){

@@ -26,6 +26,14 @@ public class CommunityDashboard extends javax.swing.JFrame {
         populateComboBoxCity();
         populateAdminComboBox();
         populateTable();
+       
+    }
+    private void resetForm(){
+        txtCommunityName.setText("");
+        txtCommunityZipcode.setText("");
+        comboBoxAdmin.setSelectedIndex(0);
+        comboBoxCity.setSelectedIndex(0);
+        lblId.setText("");
     }
     
     public void populateComboBoxCity(){
@@ -267,6 +275,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
         }
         
         populateTable();
+         resetForm();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtCommunityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityNameActionPerformed

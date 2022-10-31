@@ -21,6 +21,17 @@ public class DoctorDirectory {
     
     public DoctorDirectory(){
         this.directory = new HashMap<String,Doctor>();
+        
+        Doctor d = new Doctor();
+        d.setExperience(10);
+        d.setGender("Male");
+        d.setSpecialization("Surgery");
+        d.setName("doctor");
+        d.setUserName("doctor");
+        d.setPassword("doctor");
+        d.setRole("Doctor");
+        d.setHospitalId("hosp_1");
+        addDoctor(d);
     }
 
     public boolean addDoctor(Doctor d){

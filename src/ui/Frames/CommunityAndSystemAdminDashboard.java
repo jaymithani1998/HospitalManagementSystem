@@ -239,8 +239,16 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
             Main.pDirectory.updatePerson(p);
         }
         populateTable();
+        resetForm();
     }//GEN-LAST:event_btnAddActionPerformed
-
+    
+    private void resetForm(){
+        txtUserName.setText("");
+        txtPassword.setText("");
+        txtPersonName.setText("");
+        lblId.setText("");
+    }
+    
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed

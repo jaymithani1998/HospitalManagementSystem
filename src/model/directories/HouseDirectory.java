@@ -22,6 +22,12 @@ public class HouseDirectory {
     
     public HouseDirectory(){
         this.directory = new HashMap<String, House>();
+        
+        House house = new House();
+        house.setAptNumber(100);
+        house.setCityId("city_1");
+        house.setCommunityId("com_1");
+        addHouse(house);
     }
     
     public boolean addHouse(House h){

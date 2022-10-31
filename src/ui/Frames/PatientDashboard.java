@@ -28,8 +28,20 @@ public class PatientDashboard extends javax.swing.JFrame {
         populateCommunityComboBox();
         populateHouseComboBox();
         populateTable();
+        
     }
     
+    private void resetForm(){
+        txtPersonName.setText("");
+        txtAge.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+        comboBoxCity.setSelectedIndex(0);
+        comboBoxCommunity.setSelectedIndex(0);
+        comboBoxGender.setSelectedIndex(0);
+        comboBoxHouse.setSelectedIndex(0);
+        lblId.setText("");
+    }
     public void populateComboBoxCity(){
         String[] cityNames = Main.cityDirectory.getCitiesForComboBox();
         DefaultComboBoxModel model = new DefaultComboBoxModel(cityNames);
@@ -85,7 +97,7 @@ public class PatientDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardLeftPanel1.setBackground(new java.awt.Color(15, 15, 15));
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,7 +117,7 @@ public class PatientDashboard extends javax.swing.JFrame {
         });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
+        btnUpdate.setText("Add/Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -141,8 +153,8 @@ public class PatientDashboard extends javax.swing.JFrame {
             .addGroup(DashboardLeftPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSearchField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
@@ -150,7 +162,7 @@ public class PatientDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        DashboardRightPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardRightPanel1.setBackground(new java.awt.Color(15, 15, 15));
 
         txtAge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,18 +170,23 @@ public class PatientDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblAge.setForeground(new java.awt.Color(255, 255, 255));
         lblAge.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAge.setText("Age");
 
+        lblCommunityId.setForeground(new java.awt.Color(255, 255, 255));
         lblCommunityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityId.setText("Community ID");
 
+        lblCityId.setForeground(new java.awt.Color(255, 255, 255));
         lblCityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCityId.setText("City ID");
 
+        lblHouseId.setForeground(new java.awt.Color(255, 255, 255));
         lblHouseId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblHouseId.setText("House Id");
 
+        lblUserName.setForeground(new java.awt.Color(255, 255, 255));
         lblUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUserName.setText("Username");
 
@@ -179,6 +196,7 @@ public class PatientDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPassword.setText("Password");
 
@@ -200,6 +218,7 @@ public class PatientDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblPersonName.setForeground(new java.awt.Color(255, 255, 255));
         lblPersonName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPersonName.setText("Patient Name");
 
@@ -209,6 +228,9 @@ public class PatientDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblId.setForeground(new java.awt.Color(255, 255, 255));
+
+        lblGender.setForeground(new java.awt.Color(255, 255, 255));
         lblGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblGender.setText("Gender");
 
@@ -347,6 +369,7 @@ public class PatientDashboard extends javax.swing.JFrame {
         }
         Main.patDirectory.addPatient(p);
         populateTable();
+        resetForm();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgeActionPerformed

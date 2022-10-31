@@ -23,7 +23,6 @@ public class PersonDirectory {
         this.directory = new HashMap<String,Person>();
         Person person = new Person();
         person.setUserName("admin");
-        person.setId("adm101");
         person.setPassword("admin");
         person.setName("Jay");
         person.setRole("System Admin");
@@ -31,19 +30,11 @@ public class PersonDirectory {
        
         Person person1 = new Person();
         person1.setUserName("cadmin");
-        person1.setId("commadm");
         person1.setPassword("cadmin");
-        person1.setName("new");
+        person1.setName("cadmin");
         person1.setRole("Community Admin");
         addPerson(person1);
         
-        Person person3 = new Person();
-        person3.setUserName("doc");
-        person3.setId("doc_01");
-        person3.setPassword("doc");
-        person3.setName("Jay");
-        person3.setRole("Doctor");
-        addPerson(person3);
     }
     
     public boolean addPerson(Person p){

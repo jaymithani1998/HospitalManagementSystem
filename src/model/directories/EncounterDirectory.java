@@ -4,8 +4,10 @@
  */
 package model.directories;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import model.entities.Encounter;
+import model.entities.VitalSigns;
 import util.Utility;
 
 /**
@@ -17,6 +19,12 @@ public class EncounterDirectory {
     
     public EncounterDirectory(){
         this.directory = new HashMap<String, Encounter>();
+        Encounter encounter = new Encounter();
+        encounter.setPatientId("pat_1");
+        encounter.setDoctorId("doc_1");
+        encounter.setTimestamp(new Timestamp(System.currentTimeMillis()));
+        encounter.setVitalSigns(new VitalSigns());
+        addEncounter(encounter);
     }
 
     public void addEncounter(Encounter e){

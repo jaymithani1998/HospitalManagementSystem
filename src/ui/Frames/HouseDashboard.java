@@ -28,8 +28,15 @@ public class HouseDashboard extends javax.swing.JFrame {
         populateTable();
         populateComboBoxCity();
         populateCommunityComboBox();
+        
     }
 
+    private void resetForm(){
+        txtAptNumber.setText("");
+        comboBoxCity.setSelectedIndex(0);
+        comboBoxCommunity.setSelectedIndex(0);
+        lblId.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,7 +83,7 @@ public class HouseDashboard extends javax.swing.JFrame {
         });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
+        btnUpdate.setText("Add/Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -240,6 +247,7 @@ public class HouseDashboard extends javax.swing.JFrame {
         }
         
         populateTable();
+        resetForm();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
