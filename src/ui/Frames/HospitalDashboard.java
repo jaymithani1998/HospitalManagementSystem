@@ -55,7 +55,7 @@ public class HospitalDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,12 +120,17 @@ public class HospitalDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
+
+        lblCommunityId.setForeground(new java.awt.Color(255, 255, 255));
         lblCommunityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityId.setText("Community ID");
 
+        lblHospitalName.setForeground(new java.awt.Color(255, 255, 255));
         lblHospitalName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblHospitalName.setText("Hospital Name");
 
+        lblCityId.setForeground(new java.awt.Color(255, 255, 255));
         lblCityId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCityId.setText("City ID");
 
@@ -146,6 +151,8 @@ public class HospitalDashboard extends javax.swing.JFrame {
                 comboBoxCityItemStateChanged(evt);
             }
         });
+
+        lblId.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);

@@ -53,14 +53,12 @@ public class Login extends javax.swing.JFrame {
         lblLoginHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLoginHeader.setText("Login");
 
-        txtLoginPassword.setText("admin");
         txtLoginPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginPasswordActionPerformed(evt);
             }
         });
 
-        txtLoginId.setText("admin");
         txtLoginId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginIdActionPerformed(evt);
@@ -71,6 +69,7 @@ public class Login extends javax.swing.JFrame {
         lblLoginID.setForeground(new java.awt.Color(255, 255, 255));
         lblLoginID.setText("ID");
 
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("SUBMIT");
         btnSubmit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -84,10 +83,6 @@ public class Login extends javax.swing.JFrame {
         panelHome.setLayout(panelHomeLayout);
         panelHomeLayout.setHorizontalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(254, 254, 254))
             .addGroup(panelHomeLayout.createSequentialGroup()
                 .addGap(142, 142, 142)
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,6 +94,10 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(txtLoginId, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(153, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(254, 254, 254))
         );
 
         panelHomeLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblLoginID, lblLoginPassword});
@@ -150,9 +149,25 @@ public class Login extends javax.swing.JFrame {
         String uID = txtLoginId.getText();
         String password = txtLoginId.getText();
         boolean check= Main.pDirectory.validateCredentials(uID, password);
+         txtLoginId.setText("");
+         txtLoginPassword.setText("");
         if(check){
-            new AdminDashboard().setVisible(true);
+            if(Main.currentUser.getRole().equals("System Admin"))
+            {
+               
+                new AdminDashboard().setVisible(true);
+                
+                
+            }else if(Main.currentUser.getRole().equals("Community Admin")){
+                new AdminDashboard().setVisible(true);
+//                txtLoginId.setText("");
+            }
+            else if(Main.currentUser.getRole().equals("Doctor")){
+                new DoctorDashboard().setVisible(true);
+//                txtLoginId.setText("");
+            }
             this.dispose();
+
         }
         else{
             JOptionPane.showMessageDialog(null, "Incorrect Username or Password");

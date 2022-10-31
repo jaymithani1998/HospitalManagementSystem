@@ -69,7 +69,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,7 +134,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
 
         txtSpecialization.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,9 +142,11 @@ public class DoctorDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblSpecialization.setForeground(new java.awt.Color(255, 255, 255));
         lblSpecialization.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSpecialization.setText("Specilization");
 
+        lblExperience.setForeground(new java.awt.Color(255, 255, 255));
         lblExperience.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblExperience.setText("Experience");
 
@@ -154,12 +156,15 @@ public class DoctorDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblGender.setForeground(new java.awt.Color(255, 255, 255));
         lblGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblGender.setText("Gender");
 
+        lblHospitalId.setForeground(new java.awt.Color(255, 255, 255));
         lblHospitalId.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblHospitalId.setText("Hospital Id");
 
+        lblUserName.setForeground(new java.awt.Color(255, 255, 255));
         lblUserName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUserName.setText("Username");
 
@@ -169,6 +174,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPassword.setText("Password");
 
@@ -178,12 +184,15 @@ public class DoctorDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblName.setText("Doctor Name");
 
         comboBoxHospital.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         comboBoxGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
+
+        lblId.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);

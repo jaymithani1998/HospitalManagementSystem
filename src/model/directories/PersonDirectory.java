@@ -6,6 +6,7 @@ package model.directories;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import main.Main;
 import model.entities.City;
 import model.entities.Person;
 import util.Utility;
@@ -27,12 +28,29 @@ public class PersonDirectory {
         person.setName("Jay");
         person.setRole("System Admin");
         addPerson(person);
+       
+        Person person1 = new Person();
+        person1.setUserName("cadmin");
+        person1.setId("commadm");
+        person1.setPassword("cadmin");
+        person1.setName("new");
+        person1.setRole("Community Admin");
+        addPerson(person1);
+        
+        Person person3 = new Person();
+        person3.setUserName("doc");
+        person3.setId("doc_01");
+        person3.setPassword("doc");
+        person3.setName("Jay");
+        person3.setRole("Doctor");
+        addPerson(person3);
     }
     
     public boolean addPerson(Person p){
         for(String id: this.directory.keySet()){
             Person per = this.directory.get(id);
             if(per.getUserName().equals(p.getUserName())){
+                System.out.println("Credntials Directory:"+this.directory);
                 JOptionPane.showMessageDialog(null, "Username already exists" + per.getUserName());
                 return false;
             }
@@ -64,6 +82,7 @@ public class PersonDirectory {
         for(String id: this.directory.keySet()){
             Person per = this.directory.get(id);
             if(per.getUserName().equals(uname) && per.getPassword().equals(password)){
+                Main.currentUser = per;
                 return true;
             }
         }

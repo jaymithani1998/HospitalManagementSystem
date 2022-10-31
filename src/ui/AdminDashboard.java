@@ -5,6 +5,7 @@
 package ui;
 
 import javax.swing.JPanel;
+import main.Main;
 import ui.Frames.CityDashboard;
 import ui.Frames.CommunityAndSystemAdminDashboard;
 import ui.Frames.CommunityDashboard;
@@ -23,6 +24,10 @@ public class AdminDashboard extends javax.swing.JFrame {
      */
     public AdminDashboard() {
         initComponents();
+        if(Main.currentUser.getRole().equals("Community Admin")){
+            btnCity.setVisible(false);
+            btnCommunityAdmin.setVisible(false);
+        }
     }
 
     /**
@@ -42,56 +47,80 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnPatient = new javax.swing.JButton();
         btnCommunityAdmin = new javax.swing.JButton();
         btnHouse = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 51));
 
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        btnCity.setForeground(new java.awt.Color(255, 255, 255));
         btnCity.setText("City");
+        btnCity.setBorder(null);
         btnCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCityActionPerformed(evt);
             }
         });
 
+        btnCommunity.setForeground(new java.awt.Color(255, 255, 255));
         btnCommunity.setText("Community");
+        btnCommunity.setBorder(null);
         btnCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCommunityActionPerformed(evt);
             }
         });
 
+        btnDoctor.setForeground(new java.awt.Color(255, 255, 255));
         btnDoctor.setText("Doctor");
+        btnDoctor.setBorder(null);
         btnDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDoctorActionPerformed(evt);
             }
         });
 
+        btnHospital.setForeground(new java.awt.Color(255, 255, 255));
         btnHospital.setText("Hospital");
+        btnHospital.setBorder(null);
         btnHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHospitalActionPerformed(evt);
             }
         });
 
+        btnPatient.setForeground(new java.awt.Color(255, 255, 255));
         btnPatient.setText("Patient");
+        btnPatient.setBorder(null);
         btnPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPatientActionPerformed(evt);
             }
         });
 
+        btnCommunityAdmin.setForeground(new java.awt.Color(255, 255, 255));
         btnCommunityAdmin.setText("Admin");
+        btnCommunityAdmin.setBorder(null);
         btnCommunityAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCommunityAdminActionPerformed(evt);
             }
         });
 
+        btnHouse.setForeground(new java.awt.Color(255, 255, 255));
         btnHouse.setText("House");
+        btnHouse.setBorder(null);
         btnHouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHouseActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -100,7 +129,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
                 .addComponent(btnCity)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCommunityAdmin)
@@ -113,13 +142,20 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnHouse)
                 .addGap(18, 18, 18)
-                .addComponent(btnPatient)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogout)
+                    .addComponent(btnPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCity, btnCommunity, btnCommunityAdmin, btnDoctor, btnHospital, btnHouse, btnPatient});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(29, 29, 29)
+                .addComponent(btnLogout)
+                .addGap(88, 88, 88)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCity)
                     .addComponent(btnHospital)
@@ -128,18 +164,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(btnCommunity)
                     .addComponent(btnDoctor)
                     .addComponent(btnHouse))
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
+                .addContainerGap(457, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,17 +172,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -207,6 +226,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnHouseActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -249,8 +274,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnDoctor;
     private javax.swing.JButton btnHospital;
     private javax.swing.JButton btnHouse;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPatient;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

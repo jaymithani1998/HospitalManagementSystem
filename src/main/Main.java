@@ -14,6 +14,7 @@ import model.directories.HouseDirectory;
 import model.directories.PatientDirectory;
 import model.directories.PersonDirectory;
 import model.directories.VitalSignsDirectory;
+import model.entities.Person;
 import ui.Login;
 
 /**
@@ -30,6 +31,7 @@ public class Main {
     public static PatientDirectory patDirectory = new PatientDirectory();
     public static VitalSignsDirectory vitalDirceDirectory = new VitalSignsDirectory();
     public static HouseDirectory houseDirectory = new HouseDirectory();
+    public static Person currentUser = new Person();
     public static void main(String[] args) {
         new Login().setVisible(true);
     }

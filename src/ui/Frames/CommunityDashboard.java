@@ -67,7 +67,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,7 +87,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
         });
         tableView.setViewportView(tblView);
 
-        btnUpdate.setText("Update");
+        btnUpdate.setText("Add/Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
@@ -109,14 +109,14 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchField)
-                    .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(84, 84, 84))
+                    .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(btnUpdate)
-                .addGap(96, 96, 96)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack1)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +132,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(255, 255, 204));
+        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
 
         txtCommunityName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,15 +140,19 @@ public class CommunityDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblCommunityName.setForeground(new java.awt.Color(255, 255, 255));
         lblCommunityName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityName.setText("Community");
 
+        lblCommunityAdmin.setForeground(new java.awt.Color(255, 255, 255));
         lblCommunityAdmin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityAdmin.setText("Admin");
 
+        lblCommunityCity.setForeground(new java.awt.Color(255, 255, 255));
         lblCommunityCity.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityCity.setText("City");
 
+        lblCommunityZipcode.setForeground(new java.awt.Color(255, 255, 255));
         lblCommunityZipcode.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCommunityZipcode.setText("Zipcode");
 
@@ -163,6 +167,8 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 comboBoxCityActionPerformed(evt);
             }
         });
+
+        lblId.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout DashboardRightPanelLayout = new javax.swing.GroupLayout(DashboardRightPanel);
         DashboardRightPanel.setLayout(DashboardRightPanelLayout);
