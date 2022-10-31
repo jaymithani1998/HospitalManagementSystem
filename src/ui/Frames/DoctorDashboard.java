@@ -7,12 +7,15 @@ package ui.Frames;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import main.Main;
 import model.entities.Community;
 import model.entities.Doctor;
 import model.entities.Patient;
 import ui.AdminDashboard;
+import util.Utility;
 
 /**
  *
@@ -27,10 +30,10 @@ public class DoctorDashboard extends javax.swing.JFrame {
         initComponents();
         populateTable();
         populateComboBoxCity();
-        
+
     }
-    
-    private void resetForm(){
+
+    private void resetForm() {
         txtPersonName.setText("");
         txtExperience.setText("");
         txtUserName.setText("");
@@ -41,12 +44,12 @@ public class DoctorDashboard extends javax.swing.JFrame {
         lblId.setText("");
     }
 
-     public void populateComboBoxCity(){
+    public void populateComboBoxCity() {
         String[] hospitalNames = Main.hosDirectory.getHospitalsForComboBox();
         DefaultComboBoxModel model = new DefaultComboBoxModel(hospitalNames);
         comboBoxHospital.setModel(model);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +65,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
         tblView = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         txtSpecialization = new javax.swing.JTextField();
         lblSpecialization = new javax.swing.JLabel();
@@ -81,7 +85,13 @@ public class DoctorDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardLeftPanel.setBackground(new java.awt.Color(0, 153, 153));
+
+        txtSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchFieldKeyReleased(evt);
+            }
+        });
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -93,7 +103,15 @@ public class DoctorDashboard extends javax.swing.JFrame {
             new String [] {
                 "ID", "Doctor Name", "Specilization"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblViewMouseClicked(evt);
@@ -115,6 +133,13 @@ public class DoctorDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DashboardLeftPanelLayout = new javax.swing.GroupLayout(DashboardLeftPanel);
         DashboardLeftPanel.setLayout(DashboardLeftPanelLayout);
         DashboardLeftPanelLayout.setHorizontalGroup(
@@ -123,14 +148,16 @@ public class DoctorDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchField)
-                    .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(75, 75, 75)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,11 +169,12 @@ public class DoctorDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
-                    .addComponent(btnBack))
+                    .addComponent(btnBack)
+                    .addComponent(btnDelete))
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardRightPanel.setBackground(new java.awt.Color(0, 153, 153));
 
         txtSpecialization.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,13 +272,13 @@ public class DoctorDashboard extends javax.swing.JFrame {
                             .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtSpecialization, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DashboardRightPanelLayout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(comboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(comboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(54, 54, 54))
         );
 
         DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPassword, txtPersonName, txtUserName});
+
+        DashboardRightPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {comboBoxGender, txtExperience});
 
         DashboardRightPanelLayout.setVerticalGroup(
             DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,24 +286,25 @@ public class DoctorDashboard extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(lblId, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSpecialization)
-                    .addComponent(txtSpecialization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblExperience)
-                    .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGender)
-                    .addComponent(comboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHospitalId)
+                .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(DashboardRightPanelLayout.createSequentialGroup()
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblName)
+                            .addComponent(txtPersonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSpecialization)
+                            .addComponent(txtSpecialization, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblExperience)
+                            .addComponent(txtExperience, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblGender)
+                            .addComponent(comboBoxGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblHospitalId))
                     .addComponent(comboBoxHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -285,7 +314,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -310,28 +339,54 @@ public class DoctorDashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Doctor d = new Doctor();
-        d.setExperience(Integer.parseInt(txtExperience.getText()));
-        d.setGender(comboBoxGender.getSelectedItem().toString());
-        d.setSpecialization(txtSpecialization.getText());
-        d.setName(txtPersonName.getText());
-        d.setUserName(txtUserName.getText());
-        d.setPassword(txtPassword.getText());
-        d.setRole("Doctor");
-        d.setHospitalId(comboBoxHospital.getSelectedItem().toString().split(":",2)[1]);
-        
-        if (lblId.getText().isEmpty()) {
-            Main.doctorDirectory.addDoctor(d);
-        }else{
-            d.setId(lblId.getText());
-            Main.doctorDirectory.updateDoctor(d);
-        }
 
-        populateTable();
-        resetForm();
+        try {
+            
+            if(txtPersonName.getText().equals("") || txtExperience.getText().equals("") || txtUserName.getText().equals("") || txtPassword.getText().equals("") || txtSpecialization.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Fields cannot be blank!");
+            }
+            else if(!Utility.isOnlyAlphabets(txtPersonName.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Doctor Name format!(only alphabets allowed)");
+            }
+            else if(!Utility.isOnlyAlphaNumeric(txtUserName.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Username format!(only alphanumeric allowed)");
+            }
+            else if(!Utility.isOnlyNumeric(txtExperience.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Expeience format (only numbers allowed)");
+            }
+            else if(!Utility.isOnlyAlphabets(txtSpecialization.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Specialization format (only alphabets allowed)");
+            }
+            else{
+                Doctor d = new Doctor();
+                d.setExperience(Integer.parseInt(txtExperience.getText()));
+                d.setGender(comboBoxGender.getSelectedItem().toString());
+                d.setSpecialization(txtSpecialization.getText());
+                d.setName(txtPersonName.getText());
+                d.setUserName(txtUserName.getText());
+                d.setPassword(txtPassword.getText());
+                d.setRole("Doctor");
+                d.setHospitalId(comboBoxHospital.getSelectedItem().toString().split(":", 2)[1]);
+
+                if (lblId.getText().isEmpty()) {
+                    Main.doctorDirectory.addDoctor(d);
+                } else {
+                    d.setId(lblId.getText());
+                    Main.doctorDirectory.updateDoctor(d);
+                }
+
+                populateTable();
+                resetForm();
+            }
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtSpecializationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSpecializationActionPerformed
@@ -355,7 +410,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         int SelectRowIndex = tblView.getSelectedRow();
 
-        if(SelectRowIndex<0){
+        if (SelectRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
             return;
         }
@@ -364,7 +419,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
         String id = model.getValueAt(SelectRowIndex, 0).toString();
 
         HashMap<String, Doctor> directory = Main.doctorDirectory.getDirectory();
-        
+
         Doctor d = directory.get(id);
         txtPersonName.setText(d.getName());
         txtSpecialization.setText(d.getSpecialization());
@@ -379,6 +434,35 @@ public class DoctorDashboard extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void txtSearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchFieldKeyReleased
+        DefaultTableModel model = (DefaultTableModel)tblView.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        tblView.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(txtSearchField.getText().trim()));
+    }//GEN-LAST:event_txtSearchFieldKeyReleased
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+        int countRow = tblView.getRowCount();
+        if(countRow==1){
+            JOptionPane.showMessageDialog(this, "Atleast one doctor should exist in system");
+            return;
+        }
+        if (SelectRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+        Main.doctorDirectory.deleteDoctor(id);
+        JOptionPane.showMessageDialog(this, "Doctor details deleted");
+        resetForm();
+        populateTable();
+        //lblId.setText(id);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,6 +503,7 @@ public class DoctorDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardLeftPanel;
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboBoxGender;
     private javax.swing.JComboBox<String> comboBoxHospital;
@@ -444,8 +529,8 @@ public class DoctorDashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         model.setRowCount(0);
         HashMap<String, Doctor> docDir = Main.doctorDirectory.getDirectory();
-        for (String id: docDir.keySet()){
-            Object[] row= new Object[3];
+        for (String id : docDir.keySet()) {
+            Object[] row = new Object[3];
             Doctor d = docDir.get(id);
             row[0] = d.getId();
             row[1] = d.getName();

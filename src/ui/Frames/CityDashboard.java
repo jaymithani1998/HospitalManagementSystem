@@ -7,12 +7,15 @@ package ui.Frames;
 import java.awt.TextField;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import main.Main;
 import model.directories.CityDirectory;
 import model.entities.City;
 import model.entities.Community;
 import ui.AdminDashboard;
+import util.Utility;
 
 /**
  *
@@ -23,10 +26,10 @@ public class CityDashboard extends javax.swing.JFrame {
     /**
      * Creates new form CityDashboard
      */
-    
     public CityDashboard() {
         initComponents();
         populateTable();
+        btnDelete.setVisible(false);
     }
 
     /**
@@ -44,6 +47,7 @@ public class CityDashboard extends javax.swing.JFrame {
         tblView = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         txtCityName = new javax.swing.JTextField();
         lblCity = new javax.swing.JLabel();
@@ -51,7 +55,13 @@ public class CityDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardLeftPanel.setBackground(new java.awt.Color(0, 153, 153));
+
+        txtSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchFieldKeyReleased(evt);
+            }
+        });
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -63,7 +73,15 @@ public class CityDashboard extends javax.swing.JFrame {
             new String [] {
                 "ID", "City Name"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblViewMouseClicked(evt);
@@ -85,6 +103,13 @@ public class CityDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DashboardLeftPanelLayout = new javax.swing.GroupLayout(DashboardLeftPanel);
         DashboardLeftPanel.setLayout(DashboardLeftPanelLayout);
         DashboardLeftPanelLayout.setHorizontalGroup(
@@ -98,11 +123,13 @@ public class CityDashboard extends javax.swing.JFrame {
                             .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                        .addGap(114, 114, 114)
+                        .addGap(67, 67, 67)
                         .addComponent(btnAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBack)
-                        .addContainerGap(164, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete)
+                        .addContainerGap(127, Short.MAX_VALUE))))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,11 +141,12 @@ public class CityDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnBack))
+                    .addComponent(btnBack)
+                    .addComponent(btnDelete))
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardRightPanel.setBackground(new java.awt.Color(0, 153, 153));
 
         txtCityName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,26 +207,41 @@ public class CityDashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        City c = new City();
-        c.setCityName(txtCityName.getText());
-        if (lblId.getText().isEmpty()) {
-            Main.cityDirectory.addCity(c);
-        }else{
-            c.setId(lblId.getText());
-            Main.cityDirectory.updateCity(c);
+        try {
+            if(txtCityName.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "City Name is Blank");
+            }
+            else if(!Utility.isOnlyAlphabets(txtCityName.getText())){
+                JOptionPane.showMessageDialog(null, "Please Enter City Name in correct format (only alphabets allowed)");
+            }
+            else{
+                City c = new City();
+                c.setCityName(txtCityName.getText());
+                if (lblId.getText().isEmpty()) {
+                Main.cityDirectory.addCity(c);
+                } else {
+                    c.setId(lblId.getText());
+                    Main.cityDirectory.updateCity(c);
+                }
+                populateTable();
+                resetForm();
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        populateTable();
-        resetForm();
+
     }//GEN-LAST:event_btnAddActionPerformed
-    
-    private void resetForm(){
+
+    private void resetForm() {
         txtCityName.setText("");
         lblId.setText("");
     }
-    
+
     private void txtCityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCityNameActionPerformed
@@ -211,20 +254,47 @@ public class CityDashboard extends javax.swing.JFrame {
     private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
         // TODO add your handling code here:
         int SelectRowIndex = tblView.getSelectedRow();
-        
-        if(SelectRowIndex<0){
+
+        if (SelectRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
             return;
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         String id = model.getValueAt(SelectRowIndex, 0).toString();
-    
+
         HashMap<String, City> h = Main.cityDirectory.getDirectory();
- 
+
         lblId.setText(h.get(id).getId());
         txtCityName.setText(h.get(id).getCityName());
     }//GEN-LAST:event_tblViewMouseClicked
+
+    private void txtSearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchFieldKeyReleased
+        DefaultTableModel model = (DefaultTableModel)tblView.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        tblView.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(txtSearchField.getText().trim()));         // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchFieldKeyReleased
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to delete record");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+
+        Main.cityDirectory.deleteCity(id);
+
+        JOptionPane.showMessageDialog(this, "City details deleted");
+
+        resetForm();
+        populateTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,6 +336,7 @@ public class CityDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblId;
     private javax.swing.JScrollPane tableView;
@@ -278,8 +349,8 @@ public class CityDashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         model.setRowCount(0);
         HashMap<String, City> cityDirectory = Main.cityDirectory.getDirectory();
-        for (String id: cityDirectory.keySet()){
-            Object[] row= new Object[2];
+        for (String id : cityDirectory.keySet()) {
+            Object[] row = new Object[2];
             City c = cityDirectory.get(id);
             row[0] = c.getId();
             row[1] = c.getCityName();

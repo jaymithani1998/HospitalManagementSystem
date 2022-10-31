@@ -18,6 +18,8 @@ public class Encounter {
     private String patientId;
     VitalSigns vitalSigns;
     private Timestamp timestamp;
+    
+    
 
     public String getId() {
         return id;

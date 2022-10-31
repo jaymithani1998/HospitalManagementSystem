@@ -39,7 +39,7 @@ public class CommunityDirectory {
         }
         c.setId(Utility.getInstance().getNextCommunityId());
         this.directory.put(c.getId(), c);
-        System.out.println("Community Directory:"+this.directory);
+//        System.out.println("Community Directory:"+this.directory);
         return true;
     }
     
@@ -65,6 +65,10 @@ public class CommunityDirectory {
 
     public void setDirectory(HashMap<String, Community> directory) {
         this.directory = directory;
+    }
+    
+    public void deleteCommunity(String c){
+        this.directory.remove(c);  
     }
     
     @Override

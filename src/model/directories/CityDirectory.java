@@ -34,7 +34,7 @@ public class CityDirectory {
         }
         c.setId(Utility.getInstance().getNextCityId());
         this.directory.put(c.getId(), c);
-        System.out.println("City Dircetory"+this.directory);
+//        System.out.println("City Dircetory"+this.directory);
         return true;
     }
     
@@ -58,6 +58,11 @@ public class CityDirectory {
     
     public void setDirectory(HashMap<String, City> directory) {
         this.directory = directory;
+    }
+    
+    public void deleteCity(String c){
+        this.directory.remove(c);
+        
     }
     
     @Override

@@ -4,8 +4,10 @@
  */
 package ui;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import main.Main;
+import ui.Frames.HospitalDashboard;
 
 /**
  *
@@ -17,6 +19,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     public Login() {
+        
         initComponents();
     }
 
@@ -32,10 +35,10 @@ public class Login extends javax.swing.JFrame {
         panelHome = new javax.swing.JPanel();
         lblLoginPassword = new javax.swing.JLabel();
         lblLoginHeader = new javax.swing.JLabel();
-        txtLoginPassword = new javax.swing.JTextField();
         txtLoginId = new javax.swing.JTextField();
         lblLoginID = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
+        txtLoginPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,12 +56,6 @@ public class Login extends javax.swing.JFrame {
         lblLoginHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLoginHeader.setText("Login");
 
-        txtLoginPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLoginPasswordActionPerformed(evt);
-            }
-        });
-
         txtLoginId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtLoginIdActionPerformed(evt);
@@ -69,9 +66,7 @@ public class Login extends javax.swing.JFrame {
         lblLoginID.setForeground(new java.awt.Color(255, 255, 255));
         lblLoginID.setText("ID");
 
-        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("SUBMIT");
-        btnSubmit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,20 +79,24 @@ public class Login extends javax.swing.JFrame {
         panelHomeLayout.setHorizontalGroup(
             panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHomeLayout.createSequentialGroup()
-                .addGap(142, 142, 142)
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLoginID))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblLoginHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLoginId, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(153, Short.MAX_VALUE))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(lblLoginHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelHomeLayout.createSequentialGroup()
+                        .addGap(122, 122, 122)
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLoginID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtLoginId)
+                            .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(173, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHomeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(254, 254, 254))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(241, 241, 241))
         );
 
         panelHomeLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblLoginID, lblLoginPassword});
@@ -107,7 +106,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(panelHomeLayout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(lblLoginHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(46, 46, 46)
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtLoginId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLoginID))
@@ -115,9 +114,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(panelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         panelHomeLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblLoginID, lblLoginPassword});
@@ -134,20 +133,18 @@ public class Login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtLoginIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLoginIdActionPerformed
 
-    private void txtLoginPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginPasswordActionPerformed
-
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
         String uID = txtLoginId.getText();
-        String password = txtLoginId.getText();
+        String password = txtLoginPassword.getText();
+        
         boolean check= Main.pDirectory.validateCredentials(uID, password);
          txtLoginId.setText("");
          txtLoginPassword.setText("");
@@ -163,8 +160,11 @@ public class Login extends javax.swing.JFrame {
 //                txtLoginId.setText("");
             }
             else if(Main.currentUser.getRole().equals("Doctor")){
-                new DoctorDashboard().setVisible(true);
+                new DoctorHomeDashboard().setVisible(true);
 //                txtLoginId.setText("");
+            }
+            else if(Main.currentUser.getRole().equals("Patient")){
+                new PatientHomePage().setVisible(true);
             }
             this.dispose();
 
@@ -205,6 +205,7 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+              
             }
         });
     }
@@ -216,6 +217,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblLoginPassword;
     private javax.swing.JPanel panelHome;
     private javax.swing.JTextField txtLoginId;
-    private javax.swing.JTextField txtLoginPassword;
+    private javax.swing.JPasswordField txtLoginPassword;
     // End of variables declaration//GEN-END:variables
 }

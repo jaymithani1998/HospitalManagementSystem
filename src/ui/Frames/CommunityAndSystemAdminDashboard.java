@@ -6,12 +6,15 @@ package ui.Frames;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import main.Main;
 import model.entities.City;
 import model.entities.Community;
 import model.entities.Person;
 import ui.AdminDashboard;
+import util.Utility;
 
 /**
  *
@@ -42,6 +45,7 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         tblView = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnBack1 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         lblPassword = new javax.swing.JLabel();
         lblUserName = new javax.swing.JLabel();
@@ -55,19 +59,33 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardLeftPanel.setBackground(new java.awt.Color(0, 153, 153));
+
+        txtSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchFieldKeyReleased(evt);
+            }
+        });
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Username"
+                "ID", "Username", "Role"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblViewMouseClicked(evt);
@@ -89,6 +107,13 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DashboardLeftPanelLayout = new javax.swing.GroupLayout(DashboardLeftPanel);
         DashboardLeftPanel.setLayout(DashboardLeftPanelLayout);
         DashboardLeftPanelLayout.setHorizontalGroup(
@@ -97,14 +122,16 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearchField)
-                    .addComponent(tableView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(79, 79, 79)
                 .addComponent(btnAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack1)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
             DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,11 +143,12 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnBack1))
+                    .addComponent(btnBack1)
+                    .addComponent(btnDelete))
                 .addContainerGap())
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardRightPanel.setBackground(new java.awt.Color(0, 153, 153));
 
         lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -197,7 +225,7 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
                 .addGroup(DashboardRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRole)
                     .addComponent(comboBoxRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,41 +242,60 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(DashboardRightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(DashboardLeftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 6, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(DashboardRightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        Person p = new Person();
-        p.setName(txtPersonName.getText());
-        p.setUserName(txtUserName.getText());
-        p.setPassword(txtPassword.getText());
-        p.setRole(comboBoxRole.getSelectedItem().toString());
-        
-        if (lblId.getText().isEmpty()) {
-            Main.pDirectory.addPerson(p);
-        }else{
-            p.setId(lblId.getText());
-            Main.pDirectory.updatePerson(p);
+        try {
+            if(txtUserName.getText().equals("") || txtPassword.getText().equals("") || txtPersonName.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Fields cannot be blank!");
+            }
+            else if(!Utility.isOnlyAlphabets(txtPersonName.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Name format!(only alphabets allowed)");
+            }
+            else if(!Utility.isOnlyAlphaNumeric(txtUserName.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Username format!(only alphanumeric allowed)");
+            }
+            else{
+//                System.out.println(Main.pDirectory);
+                Person p = new Person();
+                p.setName(txtPersonName.getText());
+                p.setUserName(txtUserName.getText());
+                p.setPassword(txtPassword.getText());
+                p.setRole(comboBoxRole.getSelectedItem().toString());
+
+                if (lblId.getText().isEmpty()) {
+                    Main.pDirectory.addPerson(p);
+                } else {
+                    p.setId(lblId.getText());
+                    Main.pDirectory.updatePerson(p);
+                }
+                populateTable();
+//                System.out.println(Main.pDirectory);
+                resetForm();
+            }
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        populateTable();
-        resetForm();
     }//GEN-LAST:event_btnAddActionPerformed
-    
-    private void resetForm(){
+
+    private void resetForm() {
         txtUserName.setText("");
         txtPassword.setText("");
         txtPersonName.setText("");
         lblId.setText("");
     }
-    
+
     private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserNameActionPerformed
@@ -261,23 +308,63 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
     private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
         // TODO add your handling code here:
         int SelectRowIndex = tblView.getSelectedRow();
-        
-        if(SelectRowIndex<0){
+
+        if (SelectRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
             return;
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         String id = model.getValueAt(SelectRowIndex, 0).toString();
-    
+
         HashMap<String, Person> directory = Main.pDirectory.getDirectory();
-        
+
         Person p = directory.get(id);
         lblId.setText(id);
         txtUserName.setText(p.getUserName());
         txtPersonName.setText(p.getName());
         comboBoxRole.setSelectedItem(p.getRole());
+        
+        txtPassword.setText("");
     }//GEN-LAST:event_tblViewMouseClicked
+
+    private void txtSearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchFieldKeyReleased
+        DefaultTableModel model = (DefaultTableModel)tblView.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        tblView.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(txtSearchField.getText().trim()));
+    }//GEN-LAST:event_txtSearchFieldKeyReleased
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        int SelectRowIndex = tblView.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to delete record");
+            return;
+        }
+        HashMap<String, Person> perDirectory = Main.pDirectory.getDirectory();
+//        System.out.println(perDirectory);
+        int count =0;
+        for (String id : perDirectory.keySet()) {
+            if(perDirectory.get(id).getRole().equals("System Admin")){
+                count=count+1;
+//                System.out.println("Admin");
+            }
+        }
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+        
+        if(count==1 && tblView.getValueAt(tblView.getSelectedRow(), 2).equals("System Admin") ){
+            JOptionPane.showMessageDialog(this, "Cannot Delete Record!. Atleast one system should exist in system");
+            return;
+        }
+        Main.pDirectory.deletePerson(id);
+        
+        JOptionPane.showMessageDialog(this, "Person details deleted");
+        resetForm();
+        populateTable();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -322,6 +409,7 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel DashboardRightPanel;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JComboBox<String> comboBoxRole;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblName;
@@ -340,16 +428,17 @@ public class CommunityAndSystemAdminDashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         model.setRowCount(0);
         HashMap<String, Person> perDirectory = Main.pDirectory.getDirectory();
-        for (String id: perDirectory.keySet()){
-            
-//            if(perDirectory.get(id).getRole().equals("System Admin") || perDirectory.get(id).getRole().equals("Community Admin")){
-                Object[] row= new Object[2];
-                Person p = perDirectory.get(id);
-                row[0] = p.getId();
-                row[1] = p.getUserName();
-                model.addRow(row);
-//            }
-                
+        for (String id : perDirectory.keySet()) {
+
+            if(perDirectory.get(id).getRole().equals("System Admin") || perDirectory.get(id).getRole().equals("Community Admin")){
+            Object[] row = new Object[3];
+            Person p = perDirectory.get(id);
+            row[0] = p.getId();
+            row[1] = p.getUserName();
+            row[2] = p.getRole();
+            model.addRow(row);
+            }
+
         }
     }
 }

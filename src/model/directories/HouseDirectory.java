@@ -67,6 +67,10 @@ public class HouseDirectory {
         return returnResult.toArray(new String[0]);
     }
     
+    public void deleteHouse(String c){
+        this.directory.remove(c);  
+    }
+    
     @Override
     public String toString() {
         return "HouseDirectory{" + "directory=" + directory + '}';

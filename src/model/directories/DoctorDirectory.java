@@ -69,6 +69,9 @@ public class DoctorDirectory {
         this.directory = directory;
     }
     
+    public void deleteDoctor(String c){
+        this.directory.remove(c);  
+    }
     
     @Override
     public String toString() {

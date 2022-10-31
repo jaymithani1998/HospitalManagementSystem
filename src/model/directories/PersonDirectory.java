@@ -41,7 +41,7 @@ public class PersonDirectory {
         for(String id: this.directory.keySet()){
             Person per = this.directory.get(id);
             if(per.getUserName().equals(p.getUserName())){
-                System.out.println("Credntials Directory:"+this.directory);
+//                System.out.println("Credntials Directory:"+this.directory);
                 JOptionPane.showMessageDialog(null, "Username already exists" + per.getUserName());
                 return false;
             }
@@ -50,7 +50,7 @@ public class PersonDirectory {
             p.setId(Utility.getInstance().getNextPersonId());
         }
         this.directory.put(p.getId(), p);
-        System.out.println("City Dircetory"+this.directory);
+//        System.out.println("City Dircetory"+this.directory);
         return true;
     }
     
@@ -70,6 +70,8 @@ public class PersonDirectory {
     }
     
     public boolean validateCredentials(String uname, String password){
+//        System.out.println("Password" + password);
+//        System.out.println("Credentials" + this.directory);
         for(String id: this.directory.keySet()){
             Person per = this.directory.get(id);
             if(per.getUserName().equals(uname) && per.getPassword().equals(password)){
@@ -88,6 +90,10 @@ public class PersonDirectory {
         this.directory = directory;
     }
     
+     
+    public void deletePerson(String c){
+        this.directory.remove(c);
+    }
     
     @Override
     public String toString() {

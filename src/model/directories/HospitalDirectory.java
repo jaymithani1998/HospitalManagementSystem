@@ -25,6 +25,8 @@ public class HospitalDirectory {
         hospital.setName("Hospital1");
         hospital.setCityId("city_1");
         hospital.setCommunityId("com_1");
+        addHospital(hospital);
+
     }
     
     public boolean addHospital(Hospital h){
@@ -37,7 +39,7 @@ public class HospitalDirectory {
         }
         h.setId(Utility.getInstance().getNextHospitalId());
         this.directory.put(h.getId(), h);
-        System.out.println("City Dircetory"+this.directory);
+//        System.out.println("City Dircetory"+this.directory);
         return true;
     }
     
@@ -63,6 +65,9 @@ public class HospitalDirectory {
         this.directory = directory;
     }
 
+    public void deleteHospital(String c){
+        this.directory.remove(c);  
+    }
     
     @Override
     public String toString() {

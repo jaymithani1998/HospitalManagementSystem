@@ -4,6 +4,8 @@
  */
 package util;
 
+import java.util.regex.Pattern;
+
 /**
  *
  * @author jaymithani
@@ -20,11 +22,17 @@ public class Utility {
     public static int VITAL_ID = 1;
     public static int PERSON_ID=1;
     
+    // Regex for validation
+    public static String regexAlphabets="^(?i)[a-z\\s]+$";
+    public static String regexNumeric="^[0-9]+$";
+    public static String regexAlphaNumeric="^(?i)[a-z0-9]+$";
+    
     public static Utility instance = new Utility();
     
     private Utility(){
         
     }
+    
     
     public static Utility getInstance(){
         return instance;
@@ -83,6 +91,28 @@ public class Utility {
         PERSON_ID += 1;
         return "per_"+id;
     }
+    
+    public static boolean isOnlyAlphabets(String str){
+        if(Pattern.matches(regexAlphabets, str)){
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isOnlyNumeric(String str){
+        if(Pattern.matches(regexNumeric, str)){
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isOnlyAlphaNumeric(String str){
+        if(Pattern.matches(regexAlphaNumeric, str)){
+            return true;
+        }
+        return false;
+    }
+    
     
     public static boolean isNumeric(String strNum) {
     if (strNum == null) {

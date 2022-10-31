@@ -14,6 +14,7 @@ public class VitalSigns {
     private int bloodPressure = 0;
     private int heartRate = 0;
 
+    
     public int getBloodPressure() {
         return bloodPressure;
     }

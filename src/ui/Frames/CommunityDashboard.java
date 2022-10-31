@@ -7,10 +7,13 @@ package ui.Frames;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import main.Main;
 import model.entities.Community;
 import ui.AdminDashboard;
+import util.Utility;
 
 /**
  *
@@ -26,27 +29,30 @@ public class CommunityDashboard extends javax.swing.JFrame {
         populateComboBoxCity();
         populateAdminComboBox();
         populateTable();
-       
+        lblDelete.setVisible(false);
+
     }
-    private void resetForm(){
+
+    private void resetForm() {
         txtCommunityName.setText("");
         txtCommunityZipcode.setText("");
         comboBoxAdmin.setSelectedIndex(0);
         comboBoxCity.setSelectedIndex(0);
         lblId.setText("");
     }
-    
-    public void populateComboBoxCity(){
+
+    public void populateComboBoxCity() {
         String[] cityNames = Main.cityDirectory.getCitiesForComboBox();
         DefaultComboBoxModel model = new DefaultComboBoxModel(cityNames);
         comboBoxCity.setModel(model);
     }
-    
-    public void populateAdminComboBox(){
+
+    public void populateAdminComboBox() {
         String[] comAdmins = Main.pDirectory.getAdminsForCommunitiesAdminComboBox();
         DefaultComboBoxModel model = new DefaultComboBoxModel(comAdmins);
         comboBoxAdmin.setModel(model);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,6 +68,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
         tblView = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         btnBack1 = new javax.swing.JButton();
+        lblDelete = new javax.swing.JButton();
         DashboardRightPanel = new javax.swing.JPanel();
         txtCommunityName = new javax.swing.JTextField();
         lblCommunityName = new javax.swing.JLabel();
@@ -75,7 +82,13 @@ public class CommunityDashboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        DashboardLeftPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardLeftPanel.setBackground(new java.awt.Color(0, 153, 153));
+
+        txtSearchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchFieldKeyReleased(evt);
+            }
+        });
 
         tblView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -87,7 +100,15 @@ public class CommunityDashboard extends javax.swing.JFrame {
             new String [] {
                 "ID", "Community", "City"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblViewMouseClicked(evt);
@@ -109,6 +130,13 @@ public class CommunityDashboard extends javax.swing.JFrame {
             }
         });
 
+        lblDelete.setText("Delete");
+        lblDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lblDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout DashboardLeftPanelLayout = new javax.swing.GroupLayout(DashboardLeftPanel);
         DashboardLeftPanel.setLayout(DashboardLeftPanelLayout);
         DashboardLeftPanelLayout.setHorizontalGroup(
@@ -120,10 +148,12 @@ public class CommunityDashboard extends javax.swing.JFrame {
                     .addComponent(tableView, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(DashboardLeftPanelLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(43, 43, 43)
                 .addComponent(btnUpdate)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBack1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDelete)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DashboardLeftPanelLayout.setVerticalGroup(
@@ -136,11 +166,12 @@ public class CommunityDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DashboardLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
-                    .addComponent(btnBack1))
+                    .addComponent(btnBack1)
+                    .addComponent(lblDelete))
                 .addGap(29, 29, 29))
         );
 
-        DashboardRightPanel.setBackground(new java.awt.Color(15, 15, 15));
+        DashboardRightPanel.setBackground(new java.awt.Color(0, 153, 153));
 
         txtCommunityName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,26 +287,44 @@ public class CommunityDashboard extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Community c = new Community();
-    //       c.setAdmin(txtCommunityAdmin.getText());
-        c.setName(txtCommunityName.getText());
-        c.setCityName(comboBoxCity.getSelectedItem().toString().split(":", 2)[0]);
-        c.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
-        c.setZipcode(Integer.parseInt(txtCommunityZipcode.getText()));
-        c.setAdmin(comboBoxAdmin.getSelectedItem().toString().split(":",2)[1]);
-        
-        if (lblId.getText().isEmpty()) {
-            Main.comDircetDirectory.addCommunity(c);
-        }else{
-            c.setId(lblId.getText());
-            Main.comDircetDirectory.updateCommunity(c);
+        try {
+            if(txtCommunityName.getText().equals("") || txtCommunityZipcode.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Fields cannot be blank!");
+            }
+            else if(!Utility.isOnlyAlphabets(txtCommunityName.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Community Name format!(only alphabets allowed)");
+            }
+            else if(!Utility.isOnlyNumeric(txtCommunityZipcode.getText())){
+                JOptionPane.showMessageDialog(null, "Incorrect Zipcode format (only numbers allowed)");
+            }
+            else{
+                Community c = new Community();
+            //       c.setAdmin(txtCommunityAdmin.getText());
+            c.setName(txtCommunityName.getText());
+            c.setCityName(comboBoxCity.getSelectedItem().toString().split(":", 2)[0]);
+            c.setCityId(comboBoxCity.getSelectedItem().toString().split(":", 2)[1]);
+            c.setZipcode(Integer.parseInt(txtCommunityZipcode.getText()));
+            c.setAdmin(comboBoxAdmin.getSelectedItem().toString().split(":", 2)[1]);
+
+            if (lblId.getText().isEmpty()) {
+                Main.comDircetDirectory.addCommunity(c);
+            } else {
+                c.setId(lblId.getText());
+                Main.comDircetDirectory.updateCommunity(c);
+            }
+
+            populateTable();
+            resetForm();
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
-        
-        populateTable();
-         resetForm();
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void txtCommunityNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCommunityNameActionPerformed
@@ -298,7 +347,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
     private void tblViewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblViewMouseClicked
         int SelectRowIndex = tblView.getSelectedRow();
 
-        if(SelectRowIndex<0){
+        if (SelectRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to view or update details");
             return;
         }
@@ -311,12 +360,40 @@ public class CommunityDashboard extends javax.swing.JFrame {
         txtCommunityName.setText(h.get(id).getName());
         txtCommunityZipcode.setText(String.valueOf(h.get(id).getZipcode()));
         String adminId = h.get(id).getAdmin();
-        System.out.println("admin id" + adminId);
+//        System.out.println("admin id" + adminId);
         String adminName = Main.pDirectory.getDirectory().get(adminId).getName();
         comboBoxAdmin.setSelectedItem(adminName + ":" + adminId);
         comboBoxCity.setSelectedItem(h.get(id).getCityName());
         lblId.setText(id);
     }//GEN-LAST:event_tblViewMouseClicked
+
+    private void txtSearchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchFieldKeyReleased
+        DefaultTableModel model = (DefaultTableModel)tblView.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        tblView.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(txtSearchField.getText().trim()));
+    }//GEN-LAST:event_txtSearchFieldKeyReleased
+
+    private void lblDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblDeleteActionPerformed
+        // TODO add your handling code here:
+        int SelectRowIndex = tblView.getSelectedRow();
+        
+        
+        if(SelectRowIndex<0){
+            JOptionPane.showMessageDialog(this, "Please select a row to delete record");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tblView.getModel();
+        String id = model.getValueAt(SelectRowIndex, 0).toString();
+        
+        Main.comDircetDirectory.deleteCommunity(id);
+        
+        JOptionPane.showMessageDialog(this, "Community details deleted");
+        
+        resetForm();
+        populateTable();
+    }//GEN-LAST:event_lblDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -364,6 +441,7 @@ public class CommunityDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lblCommunityCity;
     private javax.swing.JLabel lblCommunityName;
     private javax.swing.JLabel lblCommunityZipcode;
+    private javax.swing.JButton lblDelete;
     private javax.swing.JLabel lblId;
     private javax.swing.JScrollPane tableView;
     private javax.swing.JTable tblView;
@@ -375,8 +453,8 @@ public class CommunityDashboard extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblView.getModel();
         model.setRowCount(0);
         HashMap<String, Community> comDir = Main.comDircetDirectory.getDirectory();
-        for (String id: comDir.keySet()){
-            Object[] row= new Object[3];
+        for (String id : comDir.keySet()) {
+            Object[] row = new Object[3];
             Community c = comDir.get(id);
             row[0] = c.getId();
             row[1] = c.getName();
